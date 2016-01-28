@@ -13,11 +13,15 @@
 		B54207BA1C544401008B7DCE /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54207B91C544401008B7DCE /* CoreImage.framework */; };
 		B54207C21C546609008B7DCE /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = B54207C11C546609008B7DCE /* tessdata */; };
 		B54207C61C5476FC008B7DCE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B54207C51C5476FC008B7DCE /* Images.xcassets */; };
+		B54207C81C54F221008B7DCE /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54207C71C54F221008B7DCE /* CollectionViewController.swift */; };
+		B54207CA1C54F2F0008B7DCE /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54207C91C54F2F0008B7DCE /* CollectionViewCell.swift */; };
+		B554F33E1C55063500527190 /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B554F33D1C55063500527190 /* TesseractOCR.framework */; };
 		B58E98EF1C5412CD00BEF04F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58E98EE1C5412CD00BEF04F /* AppDelegate.swift */; };
-		B58E98F11C5412CD00BEF04F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58E98F01C5412CD00BEF04F /* ViewController.swift */; };
+		B58E98F11C5412CD00BEF04F /* MenufaiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58E98F01C5412CD00BEF04F /* MenufaiViewController.swift */; };
 		B58E98F41C5412CD00BEF04F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B58E98F21C5412CD00BEF04F /* Main.storyboard */; };
 		B58E98F61C5412CD00BEF04F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B58E98F51C5412CD00BEF04F /* Assets.xcassets */; };
 		B58E98F91C5412CD00BEF04F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B58E98F71C5412CD00BEF04F /* LaunchScreen.storyboard */; };
+		F4BF1EB40B9AE644558C6BE3 /* Pods_menufai.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D439EEB7DFDE5309DD0A0A82 /* Pods_menufai.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,13 +34,17 @@
 		B54207B91C544401008B7DCE /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		B54207C11C546609008B7DCE /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		B54207C51C5476FC008B7DCE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B54207C71C54F221008B7DCE /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		B54207C91C54F2F0008B7DCE /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		B554F33D1C55063500527190 /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TesseractOCR.framework; path = "Pods/../build/Debug-iphoneos/TesseractOCR.framework"; sourceTree = "<group>"; };
 		B58E98EB1C5412CD00BEF04F /* menufai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = menufai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B58E98EE1C5412CD00BEF04F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B58E98F01C5412CD00BEF04F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B58E98F01C5412CD00BEF04F /* MenufaiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenufaiViewController.swift; sourceTree = "<group>"; };
 		B58E98F31C5412CD00BEF04F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B58E98F51C5412CD00BEF04F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B58E98F81C5412CD00BEF04F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B58E98FA1C5412CD00BEF04F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D439EEB7DFDE5309DD0A0A82 /* Pods_menufai.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_menufai.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,8 +52,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B554F33E1C55063500527190 /* TesseractOCR.framework in Frameworks */,
 				B54207BA1C544401008B7DCE /* CoreImage.framework in Frameworks */,
 				B54207AF1C542905008B7DCE /* libz.1.dylib in Frameworks */,
+				F4BF1EB40B9AE644558C6BE3 /* Pods_menufai.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,8 +65,10 @@
 		0C10CB535F0E6C4ECBF08C31 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B554F33D1C55063500527190 /* TesseractOCR.framework */,
 				B54207B91C544401008B7DCE /* CoreImage.framework */,
 				B54207AE1C542905008B7DCE /* libz.1.dylib */,
+				D439EEB7DFDE5309DD0A0A82 /* Pods_menufai.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -101,8 +113,10 @@
 		B58E98ED1C5412CD00BEF04F /* menufai */ = {
 			isa = PBXGroup;
 			children = (
+				B54207C91C54F2F0008B7DCE /* CollectionViewCell.swift */,
+				B54207C71C54F221008B7DCE /* CollectionViewController.swift */,
 				B58E98EE1C5412CD00BEF04F /* AppDelegate.swift */,
-				B58E98F01C5412CD00BEF04F /* ViewController.swift */,
+				B58E98F01C5412CD00BEF04F /* MenufaiViewController.swift */,
 				B58E98F21C5412CD00BEF04F /* Main.storyboard */,
 				B58E98F51C5412CD00BEF04F /* Assets.xcassets */,
 				B58E98F71C5412CD00BEF04F /* LaunchScreen.storyboard */,
@@ -240,8 +254,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B54207CA1C54F2F0008B7DCE /* CollectionViewCell.swift in Sources */,
+				B54207C81C54F221008B7DCE /* CollectionViewController.swift in Sources */,
 				B54207AD1C541705008B7DCE /* Pod-Bridging-Header.m in Sources */,
-				B58E98F11C5412CD00BEF04F /* ViewController.swift in Sources */,
+				B58E98F11C5412CD00BEF04F /* MenufaiViewController.swift in Sources */,
 				B58E98EF1C5412CD00BEF04F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,6 +379,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = menufai/Info.plist;
@@ -407,6 +424,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = menufai/Info.plist;
