@@ -19,4 +19,4 @@ https://trello.com/b/jcfM63hD/menufai-user-story
 
 https://drive.google.com/file/d/0B4r_loZFJqdya0pGQTBaUjVtb1E/view?usp=sharing
 
-![alt tag]http://imgur.com/c2sk6Kv.jpg
+![alt tag](http://imgur.com/c2sk6Kv.jpg "A draw up")
