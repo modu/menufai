@@ -34,16 +34,16 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate  {
         
         tesseract.image = UIImage(named: "MenuBarton");
         tesseract.recognize();
-//        tesseract.recognizedText.enumerateLines { (line, stop) -> () in
-//            if(!line.isEmpty){
-//                //let temp = line.componentsSeparatedByString(" ")
-//                self.filter(line)
-//            
-//                print(line)
-//                //let separated = split("Split Me!", {(c:Character)->Bool in return c==" "}, allowEmptySlices: false)
-//            }
-//            //print("Hi")
-//        }
+        tesseract.recognizedText.enumerateLines { (line, stop) -> () in
+            if(!line.isEmpty){
+                //let temp = line.componentsSeparatedByString(" ")
+                self.filter(line)
+            
+                print(line)
+                //let separated = split("Split Me!", {(c:Character)->Bool in return c==" "}, allowEmptySlices: false)
+            }
+            //print("Hi")
+        }
         //NSLog("%@", tesseract.recognizedText);
         /*Make a array of string and loop over it
         and query for each function and get the url
