@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B54207AD1C541705008B7DCE /* Pod-Bridging-Header.m in Sources */ = {isa = PBXBuildFile; fileRef = B54207AC1C541705008B7DCE /* Pod-Bridging-Header.m */; };
 		B54207AF1C542905008B7DCE /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B54207AE1C542905008B7DCE /* libz.1.dylib */; };
 		B54207B11C542BAB008B7DCE /* Tesseract in Resources */ = {isa = PBXBuildFile; fileRef = B54207B01C542BAB008B7DCE /* Tesseract */; };
 		B54207BA1C544401008B7DCE /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54207B91C544401008B7DCE /* CoreImage.framework */; };
@@ -27,8 +26,6 @@
 /* Begin PBXFileReference section */
 		3CF220D198286B90DFD676BE /* Pods-menufai.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-menufai.debug.xcconfig"; path = "Pods/Target Support Files/Pods-menufai/Pods-menufai.debug.xcconfig"; sourceTree = "<group>"; };
 		841FDED6A3092CF1C9ACA577 /* Pods-menufai.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-menufai.release.xcconfig"; path = "Pods/Target Support Files/Pods-menufai/Pods-menufai.release.xcconfig"; sourceTree = "<group>"; };
-		B54207AB1C541705008B7DCE /* menufai-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "menufai-Bridging-Header.h"; sourceTree = "<group>"; };
-		B54207AC1C541705008B7DCE /* Pod-Bridging-Header.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Pod-Bridging-Header.m"; sourceTree = "<group>"; };
 		B54207AE1C542905008B7DCE /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = ../../../../../usr/lib/libz.1.dylib; sourceTree = "<group>"; };
 		B54207B01C542BAB008B7DCE /* Tesseract */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Tesseract; sourceTree = "<group>"; };
 		B54207B91C544401008B7DCE /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -121,8 +118,6 @@
 				B58E98F51C5412CD00BEF04F /* Assets.xcassets */,
 				B58E98F71C5412CD00BEF04F /* LaunchScreen.storyboard */,
 				B58E98FA1C5412CD00BEF04F /* Info.plist */,
-				B54207AC1C541705008B7DCE /* Pod-Bridging-Header.m */,
-				B54207AB1C541705008B7DCE /* menufai-Bridging-Header.h */,
 				B54207B01C542BAB008B7DCE /* Tesseract */,
 			);
 			path = menufai;
@@ -256,7 +251,6 @@
 			files = (
 				B54207CA1C54F2F0008B7DCE /* CollectionViewCell.swift in Sources */,
 				B54207C81C54F221008B7DCE /* CollectionViewController.swift in Sources */,
-				B54207AD1C541705008B7DCE /* Pod-Bridging-Header.m in Sources */,
 				B58E98F11C5412CD00BEF04F /* MenufaiViewController.swift in Sources */,
 				B58E98EF1C5412CD00BEF04F /* AppDelegate.swift in Sources */,
 			);
@@ -394,20 +388,16 @@
 					"-ObjC",
 					"-weak_library",
 					"/usr/lib/libstdc++.6.0.9.dylib",
-					"-l\"TesseractOCRiOS\"",
-					"-l\"lept\"",
-					"-l\"stdc++\"",
-					"-l\"tesseract_all\"",
 					"-framework",
 					"\"Foundation\"",
 					"-framework",
 					"\"UIKit\"",
-					"-lstdc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.menufai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "menufai/menufai-Bridging-Header.h";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -439,20 +429,16 @@
 					"-ObjC",
 					"-weak_library",
 					"/usr/lib/libstdc++.6.0.9.dylib",
-					"-l\"TesseractOCRiOS\"",
-					"-l\"lept\"",
-					"-l\"stdc++\"",
-					"-l\"tesseract_all\"",
 					"-framework",
 					"\"Foundation\"",
 					"-framework",
 					"\"UIKit\"",
-					"-lstdc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.menufai;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "menufai/menufai-Bridging-Header.h";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};

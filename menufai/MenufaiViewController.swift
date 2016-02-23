@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import TesseractOCR
 
 class MenufaiViewController: UIViewController,G8TesseractDelegate  {
 
@@ -34,6 +34,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate  {
         
         tesseract.image = UIImage(named: "MenuBarton");
         tesseract.recognize();
+        print(tesseract.recognizedText)
         tesseract.recognizedText.enumerateLines { (line, stop) -> () in
             if(!line.isEmpty){
                 //let temp = line.componentsSeparatedByString(" ")
