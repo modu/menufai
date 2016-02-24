@@ -7,17 +7,26 @@
 //
 
 import UIKit
+import TesseractOCR
 
 
-class MenufaiViewController: UIViewController,G8TesseractDelegate  {
+class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     var dishName = ""
     var menu: [NSDictionary]?
     var menulinkArray : [String] = []
     var filePath :[String] = []
+    var theImage: UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let vc = UIImagePickerController()
+        vc.delegate = self
+        vc.allowsEditing = true
+        vc.sourceType = UIImagePickerControllerSourceType.Camera
+        
+        self.presentViewController(vc, animated: true, completion: nil)
         
         //var tesseract:G8Tesseract = G8Tesseract(language:"eng+ita");
         
@@ -32,18 +41,19 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate  {
         
         tesseract.maximumRecognitionTime = 60.0
         
-        tesseract.image = UIImage(named: "MenuBarton");
+        //tesseract.image = UIImage(named: "MenuBarton");
+        tesseract.image = self.theImage
         tesseract.recognize();
-//        tesseract.recognizedText.enumerateLines { (line, stop) -> () in
-//            if(!line.isEmpty){
-//                //let temp = line.componentsSeparatedByString(" ")
-//                self.filter(line)
-//            
-//                print(line)
-//                //let separated = split("Split Me!", {(c:Character)->Bool in return c==" "}, allowEmptySlices: false)
-//            }
-//            //print("Hi")
-//        }
+        tesseract.recognizedText.enumerateLines { (line, stop) -> () in
+            if(!line.isEmpty){
+                //let temp = line.componentsSeparatedByString(" ")
+                self.filter(line)
+            
+                print(line)
+                //let separated = split("Split Me!", {(c:Character)->Bool in return c==" "}, allowEmptySlices: false)
+            }
+            //print("Hi")
+        }
         //NSLog("%@", tesseract.recognizedText);
         /*Make a array of string and loop over it
         and query for each function and get the url
@@ -143,6 +153,11 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate  {
             print("Error!")
         }
         return linkData
+    }
+    
+    func imagePickerController(picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+            self.theImage = info[UIImagePickerControllerOriginalImage] as! UIImage
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
