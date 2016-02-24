@@ -21,8 +21,8 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate  {
         
         //var tesseract:G8Tesseract = G8Tesseract(language:"eng+ita");
         
-        let tesseract:G8Tesseract = G8Tesseract(language:"eng");
-        tesseract.language = "eng";
+        let tesseract:G8Tesseract = G8Tesseract(language:"eng+fra");
+        tesseract.language = "eng+fra";
         tesseract.delegate = self;
         tesseract.engineMode = .TesseractCubeCombined
         
@@ -32,9 +32,9 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate  {
         
         tesseract.maximumRecognitionTime = 60.0
         
-        tesseract.image = UIImage(named: "MenuBarton");
+        tesseract.image = UIImage(named: "frenchMenu1");
         tesseract.recognize();
-        print(tesseract.recognizedText)
+        print(tesseract.recognizedText);
         tesseract.recognizedText.enumerateLines { (line, stop) -> () in
             if(!line.isEmpty){
                 //let temp = line.componentsSeparatedByString(" ")
@@ -45,17 +45,18 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate  {
             }
             //print("Hi")
         }
+        
         //NSLog("%@", tesseract.recognizedText);
         /*Make a array of string and loop over it
         and query for each function and get the url
         and then make a Array of String of URL
         We will use that Array of String to make our String*/
-        let menuArray = ["Burger" , "Pizza" , "Hotdog" , "spaghetti"]
-        for menu in menuArray {
-            let temp = networkRequest(menu)
-            print(temp)
-            self.menulinkArray.append(temp)
-        }
+//        let menuArray = ["Burger" , "Pizza" , "Hotdog" , "spaghetti"]
+//        for menu in menuArray {
+//            let temp = networkRequest(menu)
+//            print(temp)
+//            self.menulinkArray.append(temp)
+//        }
         
         dishName = "Burger"
        // getImage()
@@ -91,24 +92,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate  {
         return listOfNames
     }
     
-    func matchesForRegexInText(regex: String!, text :String!) -> String {
-        do {
-            
-            let nsString = text as NSString;
-         
-            let strippedStr = text.stringByReplacingOccurrencesOfString("[^A-z ]+", withString: "", options: NSStringCompareOptions.RegularExpressionSearch, range:nil)
-            
-            return strippedStr
-            //            let regex = try NSRegularExpression(pattern: regex, options: [])
-//             //
-//              let results = regex.matchesInString(text, options: [], range: NSMakeRange(0, nsString.length))
-//            
-//            return results.map { nsString.substringWithRange($0.range)}
-        } catch let error as NSError {
-            print("invalid regex: \(error.localizedDescription)")
-            return ""
-        }
-    }
+
     func networkRequest(menuName :String) -> String {
         var cx = "011903584210993207937:bz3dg769ssy"
         var key = "AIzaSyCUXq0S6_wp1AtZy2vLNDpVCV1Opsapu1M"
@@ -154,6 +138,26 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate  {
         print(menulinkArray)
     }
     
+    
+    
+    func matchesForRegexInText(regex: String!, text :String!) -> String {
+        do {
+            
+            let nsString = text as NSString;
+            
+            let strippedStr = text.stringByReplacingOccurrencesOfString("[^A-z ]+", withString: "", options: NSStringCompareOptions.RegularExpressionSearch, range:nil)
+            
+            return strippedStr
+            //            let regex = try NSRegularExpression(pattern: regex, options: [])
+            //             //
+            //              let results = regex.matchesInString(text, options: [], range: NSMakeRange(0, nsString.length))
+            //
+            //            return results.map { nsString.substringWithRange($0.range)}
+        } catch let error as NSError {
+            print("invalid regex: \(error.localizedDescription)")
+            return ""
+        }
+    }
     
 //    func getImage() {
 //        let url = NSURL(string: "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=\(dishName)")
