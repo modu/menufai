@@ -17,6 +17,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
     var menulinkArray : [String] = []
     var filePath :[String] = []
     var theImage: UIImage?
+    var menuString: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,13 +25,14 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
         let vc = UIImagePickerController()
         vc.delegate = self
         vc.allowsEditing = true
-        vc.sourceType = UIImagePickerControllerSourceType.Camera
+        vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         
         self.presentViewController(vc, animated: true, completion: nil)
         
         //var tesseract:G8Tesseract = G8Tesseract(language:"eng+ita");
-        
+        /*
         let tesseract:G8Tesseract = G8Tesseract(language:"eng");
+        
         tesseract.language = "eng";
         tesseract.delegate = self;
         tesseract.engineMode = .TesseractCubeCombined
@@ -68,7 +70,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
         
         dishName = "Burger"
        // getImage()
-        
+        */
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -81,6 +83,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
     func filter(line :String)->[String] {
         let temp = line.componentsSeparatedByString(" ")
     //    print("filtering -  " + line)
+        
         print( matchesForRegexInText("/^[A-Za-z]+$/", text: line ) )
         
         var listOfNames :[String] = [""] // an array of strings
@@ -135,12 +138,17 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
                     if let result = try NSJSONSerialization.JSONObjectWithData(response1, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
                         //print(result)
                         self.menu = result["items"] as? [NSDictionary]
-                        for dic in self.menu! {
-                            if let linkData = dic["link"] as? String {
-                                self.filePath.append(linkData)
-                                //print(filePath)
-                                return linkData
+                        if self.menu != nil {
+                            for dic in self.menu! {
+                                if let linkData = dic["link"] as? String {
+                                    self.filePath.append(linkData)
+                                    //print(filePath)
+                                    return linkData
+                                }
                             }
+                        }
+                        else {
+                            print("Nothing found for this item: \(menuName)")
                         }
                         
                     }
@@ -158,14 +166,57 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
     func imagePickerController(picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [String : AnyObject]) {
             self.theImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+            
+            let tesseract:G8Tesseract = G8Tesseract(language:"eng");
+            
+            tesseract.language = "eng";
+            tesseract.delegate = self;
+            tesseract.engineMode = .TesseractCubeCombined
+            
+            tesseract.charWhitelist = "abcdefghijklmnopqrstwxyz0123456789ABCDEFGHIJKLMNOPQRSTWXYZ.$";
+            
+            tesseract.pageSegmentationMode = .Auto
+            
+            tesseract.maximumRecognitionTime = 60.0
+            
+            //tesseract.image = UIImage(named: "MenuBarton");
+            tesseract.image = self.theImage
+            tesseract.recognize();
+            tesseract.recognizedText.enumerateLines { (line, stop) -> () in
+                if(!line.isEmpty){
+                    //let temp = line.componentsSeparatedByString(" ")
+                    self.filter(line)
+                    
+                    //print(line)
+                    self.menuString.append(line)
+                    //let separated = split("Split Me!", {(c:Character)->Bool in return c==" "}, allowEmptySlices: false)
+                }
+                //print("Hi")
+            }
+            //NSLog("%@", tesseract.recognizedText);
+            /*Make a array of string and loop over it
+            and query for each function and get the url
+            and then make a Array of String of URL
+            We will use that Array of String to make our String*/
+            let menuArray = self.menuString
+            for menu in menuArray {
+                let temp = networkRequest(menu)
+                self.menulinkArray.append(temp)
+            }
+            
+            dismissViewControllerAnimated(true, completion: { () -> Void in
+            })
+            
+            performSegueWithIdentifier("resultView", sender: nil)
+            
+
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         let vc = segue.destinationViewController as! CollectionViewController
         vc.menuLinkArray = menulinkArray
-        
-        print(menulinkArray)
+        vc.menuItems = menuString
     }
     
     
