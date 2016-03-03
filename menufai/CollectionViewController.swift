@@ -11,8 +11,9 @@ import UIKit
 
 class CollectionViewController: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
 
-    var menuLinkArray :[String]=[]
-    var menuItems : [String] = []
+    var menuLinkArray: [String]=[]
+    var menuItems: [String] = []
+    var menuNutrition: [NSDictionary] = []
     
     @IBOutlet weak var collectionViewft: UICollectionView!
     @IBOutlet weak var infoView: UIView!
@@ -85,7 +86,18 @@ class CollectionViewController: UIViewController , UICollectionViewDelegate, UIC
                 var cell = self.collectionViewft.cellForItemAtIndexPath(index) as! CollectionViewCell
                 // do stuff with your cell, for example print the indexPath
                 print("\(index.row): I clicked on a \(cell.foodLabel.text!)")
-                self.nameLabel.text = cell.foodLabel.text
+                self.nameLabel.text = "Menu Item: \(cell.foodLabel.text!)"
+                if menuNutrition[index.row] != [:] {
+                    self.nutritionLabel.text = "\(menuNutrition[index.row]["item_name"]!) facts from \(menuNutrition[index.row]["brand_name"]!) \n" +
+                        "Calories: \(menuNutrition[index.row]["nf_calories"]!) cal \n" +
+                        "Total Fat: \(menuNutrition[index.row]["nf_total_fat"]!) g \n"
+                }
+                else {
+                    self.nutritionLabel.text = "No nutritional values found"
+                }
+                
+                
+                print(menuNutrition[index.row])
                 
                 
             } else {

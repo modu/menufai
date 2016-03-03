@@ -18,6 +18,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
     var filePath :[String] = []
     var theImage: UIImage?
     var menuString: [String] = []
+    var menuNutrition: [NSDictionary] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -163,6 +164,63 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
         return linkData
     }
     
+    func requestNutrition(menuItem: String) {
+        let appId = "f043c24d"
+        let appKey = "8897be9dbacaa535e0cba2ea6b4d4d44"
+        var escapedItem = menuItem.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        var search = "https://api.nutritionix.com/v1_1/search/\(escapedItem!)?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat&appId=\(appId)&appKey=\(appKey)"
+        
+        let url = NSURL(string: search)!
+        let request = NSURLRequest(URL: url)
+        //var dictionary : [String:String] = [:]
+        do {
+            var responseObject:NSURLResponse?
+            var err:NSErrorPointer = NSErrorPointer()
+            let responseData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &responseObject)
+            if let response1 = responseData as NSData?{
+                if(err == nil) {
+                    if let result = try NSJSONSerialization.JSONObjectWithData(response1, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
+                        //print(result["hits"]![0]["fields"]!)
+                        if result["total_hits"] as! Int != 0 {
+                            self.menuNutrition.append(result["hits"]![0]["fields"]! as! NSDictionary)
+                        }
+                        else {
+                            print("No nutrition info found")
+                            self.menuNutrition.append([:])
+                        }
+                        
+                        /*
+                        self.menu = result["items"] as? [NSDictionary]
+                        if self.menu != nil {
+                            for dic in self.menu! {
+                                if let linkData = dic["link"] as? String {
+                                    self.filePath.append(linkData)
+                                    //print(filePath)
+                                    return linkData
+                                }
+                            }
+                        }
+
+                        else {
+                            print("Nothing found for this item: \(menuItem)")
+                        }
+*/
+                        
+                    }
+                    else {
+                        print("No nutrition info found")
+                        self.menuNutrition.append([:])
+                    }
+                }
+            }
+        }catch {
+            print("Error!")
+        }
+        //return dictionary as NSDictionary
+
+        
+    }
+    
     func imagePickerController(picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [String : AnyObject]) {
             self.theImage = info[UIImagePickerControllerOriginalImage] as! UIImage
@@ -202,6 +260,8 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
             for menu in menuArray {
                 let temp = networkRequest(menu)
                 self.menulinkArray.append(temp)
+                
+                let nutrition = requestNutrition(menu)
             }
             
             dismissViewControllerAnimated(true, completion: { () -> Void in
@@ -217,6 +277,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
         let vc = segue.destinationViewController as! CollectionViewController
         vc.menuLinkArray = menulinkArray
         vc.menuItems = menuString
+        vc.menuNutrition = menuNutrition
     }
     
     

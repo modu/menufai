@@ -93,37 +93,52 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <view hidden="YES" alpha="0.25" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rk5-FF-uOr" userLabel="Info Overlay">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rk5-FF-uOr" userLabel="Info Overlay">
+                                <rect key="frame" x="20" y="89" width="280" height="459"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nutritional Values" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DLD-6e-z1k">
-                                        <rect key="frame" x="139" y="93" width="135" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Food name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zft-jH-71Z" userLabel="Food name">
+                                        <rect key="frame" x="8" y="8" width="264" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Other facts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNP-mb-wgy">
-                                        <rect key="frame" x="139" y="122" width="86" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nutritional Values" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DLD-6e-z1k">
+                                        <rect key="frame" x="8" y="37" width="264" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Food name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zft-jH-71Z" userLabel="Food name">
-                                        <rect key="frame" x="139" y="64" width="86" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other facts" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNP-mb-wgy">
+                                        <rect key="frame" x="8" y="66" width="264" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.79823626889999999" green="0.0" blue="0.095778156650000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.75" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="DLD-6e-z1k" firstAttribute="leading" secondItem="Rk5-FF-uOr" secondAttribute="leading" constant="8" id="2kF-Ey-kzc"/>
+                                    <constraint firstAttribute="trailing" secondItem="yNP-mb-wgy" secondAttribute="trailing" constant="8" id="5LE-7e-tYd"/>
+                                    <constraint firstItem="yNP-mb-wgy" firstAttribute="top" secondItem="DLD-6e-z1k" secondAttribute="bottom" constant="8" id="5w6-tA-sPK"/>
+                                    <constraint firstAttribute="trailing" secondItem="DLD-6e-z1k" secondAttribute="trailing" constant="8" id="FwP-DG-IU5"/>
+                                    <constraint firstItem="zft-jH-71Z" firstAttribute="top" secondItem="Rk5-FF-uOr" secondAttribute="top" constant="8" id="UBj-X8-1W0"/>
+                                    <constraint firstItem="DLD-6e-z1k" firstAttribute="top" secondItem="zft-jH-71Z" secondAttribute="bottom" constant="8" id="a8m-F4-EmZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="zft-jH-71Z" secondAttribute="trailing" constant="8" id="ceb-zX-c5x"/>
+                                    <constraint firstItem="yNP-mb-wgy" firstAttribute="leading" secondItem="Rk5-FF-uOr" secondAttribute="leading" constant="8" id="ge9-bp-FlQ"/>
+                                    <constraint firstItem="zft-jH-71Z" firstAttribute="leading" secondItem="Rk5-FF-uOr" secondAttribute="leading" constant="8" id="szc-zL-Ucl"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="aPx-1e-Edy" firstAttribute="top" secondItem="hWf-zf-brg" secondAttribute="top" constant="63" id="APU-um-kck"/>
+                            <constraint firstAttribute="trailing" secondItem="Rk5-FF-uOr" secondAttribute="trailing" constant="20" id="CFF-id-sQS"/>
+                            <constraint firstItem="gMk-wF-OwW" firstAttribute="top" secondItem="Rk5-FF-uOr" secondAttribute="bottom" constant="20" id="DpZ-bB-d5j"/>
                             <constraint firstAttribute="trailing" secondItem="aPx-1e-Edy" secondAttribute="trailing" id="Qjy-Zs-rFj"/>
+                            <constraint firstItem="Rk5-FF-uOr" firstAttribute="top" secondItem="WVj-JR-Wj9" secondAttribute="bottom" constant="25" id="VMS-ew-Dy5"/>
                             <constraint firstItem="aPx-1e-Edy" firstAttribute="leading" secondItem="hWf-zf-brg" secondAttribute="leading" id="aCn-px-YPx"/>
                             <constraint firstItem="gMk-wF-OwW" firstAttribute="top" secondItem="aPx-1e-Edy" secondAttribute="bottom" id="ds1-dP-X7V"/>
+                            <constraint firstItem="Rk5-FF-uOr" firstAttribute="leading" secondItem="hWf-zf-brg" secondAttribute="leading" constant="20" id="r6v-Z1-3HI"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rWw-lQ-FJr"/>
