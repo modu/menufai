@@ -181,8 +181,14 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
                 if(err == nil) {
                     if let result = try NSJSONSerialization.JSONObjectWithData(response1, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
                         //print(result["hits"]![0]["fields"]!)
+                        if result.count > 2 {
                         if result["total_hits"] as! Int != 0 {
                             self.menuNutrition.append(result["hits"]![0]["fields"]! as! NSDictionary)
+                        }
+                        else {
+                            print("No nutrition info found")
+                            self.menuNutrition.append([:])
+                        }
                         }
                         else {
                             print("No nutrition info found")
