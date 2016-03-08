@@ -4,8 +4,8 @@ Menufai is designed to give its users information about the listings on any rest
 Required User Stories
 
 - [ ] User can take an image and it can be sent to the image processor
-- [ ] Image processor parses out keywords of the image into usable code (ie., Strings)
-- [ ] String output from the image processor is searched on Google and the results should be returned and stored in a view
+- [x] Image processor parses out keywords of the image into usable code (ie., Strings)
+- [x] String output from the image processor is searched on Google and the results should be returned and stored in a view
 - [ ] User can filter out results (ie., vegan, Gluten-free, etc.)
 
 Optional User Stories
@@ -18,3 +18,16 @@ Optional User Stories
 https://trello.com/b/jcfM63hD/menufai-user-story
 
 ![alt tag](http://imgur.com/3MOLG8G.jpg "A draw up")
+
+## Data Scheme and APIs Used
+Google Custom Search
+https://developers.google.com/custom-search/json-api/v1/overview
+Example JSON:
+https://www.googleapis.com/customsearch/v1?cx=011903584210993207937:bz3dg769ssy&q=BACON&key=AIzaSyCUXq0S6_wp1AtZy2vLNDpVCV1Opsapu1M&searchType=image
+Properties used: items, link
+
+Nutritionix
+https://developer.nutritionix.com/docs/v1_1
+Example JSON:
+https://api.nutritionix.com/v1_1/search/BACON?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat&appId=f043c24d&appKey=8897be9dbacaa535e0cba2ea6b4d4d44
+Properties used: total_hits, hits, fields, item_name, brand_name, nf_calories, nf_total_fat

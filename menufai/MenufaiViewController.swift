@@ -9,20 +9,34 @@
 import UIKit
 import TesseractOCR
 
-class MenufaiViewController: UIViewController,G8TesseractDelegate  {
+class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     var dishName = ""
     var menu: [NSDictionary]?
     var menulinkArray : [String] = []
     var filePath :[String] = []
+    var theImage: UIImage?
+    var menuString: [String] = []
+    var menuNutrition: [NSDictionary] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //var tesseract:G8Tesseract = G8Tesseract(language:"eng+ita");
+        let vc = UIImagePickerController()
+        vc.delegate = self
+        vc.allowsEditing = true
+        vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         
+        self.presentViewController(vc, animated: true, completion: nil)
+
         let tesseract:G8Tesseract = G8Tesseract(language:"eng+fra");
         tesseract.language = "eng+fra";
+
+        //var tesseract:G8Tesseract = G8Tesseract(language:"eng+ita");
+        /*
+        let tesseract:G8Tesseract = G8Tesseract(language:"eng");
+        
+        tesseract.language = "eng";
         tesseract.delegate = self;
         tesseract.engineMode = .TesseractCubeCombined
         
@@ -31,10 +45,13 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate  {
         tesseract.pageSegmentationMode = .Auto
         
         tesseract.maximumRecognitionTime = 60.0
-        
+
         tesseract.image = UIImage(named: "frenchMenu1");
         tesseract.recognize();
         print(tesseract.recognizedText);
+        //tesseract.image = UIImage(named: "MenuBarton");
+        tesseract.image = self.theImage
+        tesseract.recognize();
         tesseract.recognizedText.enumerateLines { (line, stop) -> () in
             if(!line.isEmpty){
                 //let temp = line.componentsSeparatedByString(" ")
@@ -45,7 +62,6 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate  {
             }
             //print("Hi")
         }
-        
         //NSLog("%@", tesseract.recognizedText);
         /*Make a array of string and loop over it
         and query for each function and get the url
@@ -60,7 +76,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate  {
         
         dishName = "Burger"
        // getImage()
-        
+        */
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -73,6 +89,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate  {
     func filter(line :String)->[String] {
         let temp = line.componentsSeparatedByString(" ")
     //    print("filtering -  " + line)
+        
         print( matchesForRegexInText("/^[A-Za-z]+$/", text: line ) )
         
         var listOfNames :[String] = [""] // an array of strings
@@ -110,12 +127,17 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate  {
                     if let result = try NSJSONSerialization.JSONObjectWithData(response1, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
                         //print(result)
                         self.menu = result["items"] as? [NSDictionary]
-                        for dic in self.menu! {
-                            if let linkData = dic["link"] as? String {
-                                self.filePath.append(linkData)
-                                //print(filePath)
-                                return linkData
+                        if self.menu != nil {
+                            for dic in self.menu! {
+                                if let linkData = dic["link"] as? String {
+                                    self.filePath.append(linkData)
+                                    //print(filePath)
+                                    return linkData
+                                }
                             }
+                        }
+                        else {
+                            print("Nothing found for this item: \(menuName)")
                         }
                         
                     }
@@ -130,12 +152,126 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate  {
         return linkData
     }
     
+    func requestNutrition(menuItem: String) {
+        let appId = "f043c24d"
+        let appKey = "8897be9dbacaa535e0cba2ea6b4d4d44"
+        var escapedItem = menuItem.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+        var search = "https://api.nutritionix.com/v1_1/search/\(escapedItem!)?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat&appId=\(appId)&appKey=\(appKey)"
+        print(search)
+        let url = NSURL(string: search)!
+        let request = NSURLRequest(URL: url)
+        //var dictionary : [String:String] = [:]
+        do {
+            var responseObject:NSURLResponse?
+            var err:NSErrorPointer = NSErrorPointer()
+            let responseData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &responseObject)
+            if let response1 = responseData as NSData?{
+                if(err == nil) {
+                    if let result = try NSJSONSerialization.JSONObjectWithData(response1, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
+                        //print(result["hits"]![0]["fields"]!)
+                        if result.count > 2 {
+                        if result["total_hits"] as! Int != 0 {
+                            self.menuNutrition.append(result["hits"]![0]["fields"]! as! NSDictionary)
+                        }
+                        else {
+                            print("No nutrition info found")
+                            self.menuNutrition.append([:])
+                        }
+                        }
+                        else {
+                            print("No nutrition info found")
+                            self.menuNutrition.append([:])
+                        }
+                        
+                        /*
+                        self.menu = result["items"] as? [NSDictionary]
+                        if self.menu != nil {
+                            for dic in self.menu! {
+                                if let linkData = dic["link"] as? String {
+                                    self.filePath.append(linkData)
+                                    //print(filePath)
+                                    return linkData
+                                }
+                            }
+                        }
+
+                        else {
+                            print("Nothing found for this item: \(menuItem)")
+                        }
+*/
+                        
+                    }
+                    else {
+                        print("No nutrition info found")
+                        self.menuNutrition.append([:])
+                    }
+                }
+            }
+        }catch {
+            print("Error!")
+        }
+        //return dictionary as NSDictionary
+
+        
+    }
+    
+    func imagePickerController(picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+            self.theImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+            
+            let tesseract:G8Tesseract = G8Tesseract(language:"eng");
+            
+            tesseract.language = "eng";
+            tesseract.delegate = self;
+            tesseract.engineMode = .TesseractCubeCombined
+            
+            tesseract.charWhitelist = "abcdefghijklmnopqrstwxyz0123456789ABCDEFGHIJKLMNOPQRSTWXYZ.$";
+            
+            tesseract.pageSegmentationMode = .Auto
+            
+            tesseract.maximumRecognitionTime = 60.0
+            
+            //tesseract.image = UIImage(named: "MenuBarton");
+            tesseract.image = self.theImage
+            tesseract.recognize();
+            tesseract.recognizedText.enumerateLines { (line, stop) -> () in
+                if(!line.isEmpty){
+                    //let temp = line.componentsSeparatedByString(" ")
+                    self.filter(line)
+                    
+                    //print(line)
+                    self.menuString.append(line)
+                    //let separated = split("Split Me!", {(c:Character)->Bool in return c==" "}, allowEmptySlices: false)
+                }
+                //print("Hi")
+            }
+            //NSLog("%@", tesseract.recognizedText);
+            /*Make a array of string and loop over it
+            and query for each function and get the url
+            and then make a Array of String of URL
+            We will use that Array of String to make our String*/
+            let menuArray = self.menuString
+            for menu in menuArray {
+                let temp = networkRequest(menu)
+                self.menulinkArray.append(temp)
+                
+                let nutrition = requestNutrition(menu)
+            }
+            
+            dismissViewControllerAnimated(true, completion: { () -> Void in
+            })
+            
+            performSegueWithIdentifier("resultView", sender: nil)
+            
+
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         let vc = segue.destinationViewController as! CollectionViewController
         vc.menuLinkArray = menulinkArray
-        
-        print(menulinkArray)
+        vc.menuItems = menuString
+        vc.menuNutrition = menuNutrition
     }
     
     

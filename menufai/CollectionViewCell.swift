@@ -9,6 +9,10 @@
 import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var fitImageView: UIImageView!
+    
+    @IBOutlet weak var resultImageView: UIImageView!
+    @IBOutlet weak var foodLabel: UILabel!
+    
+    
 
 }
