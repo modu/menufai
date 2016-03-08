@@ -169,7 +169,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
         let appKey = "8897be9dbacaa535e0cba2ea6b4d4d44"
         var escapedItem = menuItem.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         var search = "https://api.nutritionix.com/v1_1/search/\(escapedItem!)?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat&appId=\(appId)&appKey=\(appKey)"
-        
+        print(search)
         let url = NSURL(string: search)!
         let request = NSURLRequest(URL: url)
         //var dictionary : [String:String] = [:]
