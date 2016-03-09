@@ -25,7 +25,8 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
         let vc = UIImagePickerController()
         vc.delegate = self
         vc.allowsEditing = true
-        vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+//        vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        vc.sourceType = UIImagePickerControllerSourceType.Camera
         
         self.presentViewController(vc, animated: true, completion: nil)
 
@@ -220,12 +221,12 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
             self.theImage = info[UIImagePickerControllerOriginalImage] as! UIImage
             
             let tesseract:G8Tesseract = G8Tesseract(language:"eng");
-            
+            print("imagePickerController got called");
             tesseract.language = "eng";
             tesseract.delegate = self;
             tesseract.engineMode = .TesseractCubeCombined
             
-            tesseract.charWhitelist = "abcdefghijklmnopqrstwxyz0123456789ABCDEFGHIJKLMNOPQRSTWXYZ.$";
+            //tesseract.charWhitelist = "abcdefghijklmnopqrstwxyz0123456789ABCDEFGHIJKLMNOPQRSTWXYZ.$";
             
             tesseract.pageSegmentationMode = .Auto
             
