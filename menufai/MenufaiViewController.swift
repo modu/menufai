@@ -91,7 +91,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
         let temp = line.componentsSeparatedByString(" ")
     //    print("filtering -  " + line)
         
-        //print( matchesForRegexInText("/^[A-Za-z]+$/", text: line ) )
+        print( matchesForRegexInText("/^[A-Za-z]+$/", text: line ) )
         
         var listOfNames :[String] = [""] // an array of strings
         for words in temp {
@@ -100,7 +100,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
             {
                 //print(words)
 //                listOfNames.append(words)
-                print( matchesForRegexInText("/^[A-Za-z]+$/", text : words ) )
+//                print( matchesForRegexInText("/^[A-Za-z]+$/", text : words ) )
             }
 //            if(words.containsString("abcdefghijklmnopqrstwxyzABCDEFGHIJKLMNOPQRSTWXYZ")) {
 //                print(words)
@@ -218,13 +218,14 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
     
     func imagePickerController(picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-            self.theImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-            
+            var scaledImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+            self.theImage = scaledImage
+            //scaledImage = scaleImage(self.theImage!, maxDimension: 640)
             let adaptFilter = GPUImageAdaptiveThresholdFilter()
             adaptFilter.blurRadiusInPixels = 4.0
             
-            let filteredImage = adaptFilter.imageByFilteringImage(self.theImage)
-            //UIImageWriteToSavedPhotosAlbum(filteredImage, nil, nil, nil)
+            let filteredImage = adaptFilter.imageByFilteringImage(scaledImage)
+            UIImageWriteToSavedPhotosAlbum(filteredImage, nil, nil, nil)
             
             let tesseract:G8Tesseract = G8Tesseract(language:"eng");
             
@@ -316,6 +317,29 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
             print("invalid regex: \(error.localizedDescription)")
             return ""
         }
+    }
+    
+    func scaleImage(image: UIImage, maxDimension: CGFloat) -> UIImage {
+        
+        var scaledSize = CGSize(width: maxDimension, height: maxDimension)
+        var scaleFactor: CGFloat
+        
+        if image.size.width > image.size.height {
+            scaleFactor = image.size.height / image.size.width
+            scaledSize.width = maxDimension
+            scaledSize.height = scaledSize.width * scaleFactor
+        } else {
+            scaleFactor = image.size.width / image.size.height
+            scaledSize.height = maxDimension
+            scaledSize.width = scaledSize.height * scaleFactor
+        }
+        
+        UIGraphicsBeginImageContext(scaledSize)
+        image.drawInRect(CGRectMake(0, 0, scaledSize.width, scaledSize.height))
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return scaledImage
     }
     
 //    func getImage() {
