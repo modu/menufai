@@ -8,6 +8,7 @@
 
 import UIKit
 import TesseractOCR
+import GPUImage
 
 class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -90,7 +91,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
         let temp = line.componentsSeparatedByString(" ")
     //    print("filtering -  " + line)
         
-        print( matchesForRegexInText("/^[A-Za-z]+$/", text: line ) )
+        //print( matchesForRegexInText("/^[A-Za-z]+$/", text: line ) )
         
         var listOfNames :[String] = [""] // an array of strings
         for words in temp {
@@ -99,7 +100,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
             {
                 //print(words)
 //                listOfNames.append(words)
-                //print( matchesForRegexInText("/^[A-Za-z]+$/", text : words ) )
+                print( matchesForRegexInText("/^[A-Za-z]+$/", text : words ) )
             }
 //            if(words.containsString("abcdefghijklmnopqrstwxyzABCDEFGHIJKLMNOPQRSTWXYZ")) {
 //                print(words)
@@ -137,7 +138,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
                             }
                         }
                         else {
-                            print("Nothing found for this item: \(menuName)")
+                            print("No image found for this item: \(menuName)")
                         }
                         
                     }
@@ -157,7 +158,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
         let appKey = "8897be9dbacaa535e0cba2ea6b4d4d44"
         var escapedItem = menuItem.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         var search = "https://api.nutritionix.com/v1_1/search/\(escapedItem!)?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat&appId=\(appId)&appKey=\(appKey)"
-        print(search)
+        print("Searching for: \(search)")
         let url = NSURL(string: search)!
         let request = NSURLRequest(URL: url)
         //var dictionary : [String:String] = [:]
@@ -219,6 +220,12 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
         didFinishPickingMediaWithInfo info: [String : AnyObject]) {
             self.theImage = info[UIImagePickerControllerOriginalImage] as! UIImage
             
+            let adaptFilter = GPUImageAdaptiveThresholdFilter()
+            adaptFilter.blurRadiusInPixels = 4.0
+            
+            let filteredImage = adaptFilter.imageByFilteringImage(self.theImage)
+            //UIImageWriteToSavedPhotosAlbum(filteredImage, nil, nil, nil)
+            
             let tesseract:G8Tesseract = G8Tesseract(language:"eng");
             
             tesseract.language = "eng";
@@ -232,15 +239,27 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
             tesseract.maximumRecognitionTime = 60.0
             
             //tesseract.image = UIImage(named: "MenuBarton");
-            tesseract.image = self.theImage
+            //tesseract.image = self.theImage
+            tesseract.image = filteredImage
             tesseract.recognize();
             tesseract.recognizedText.enumerateLines { (line, stop) -> () in
                 if(!line.isEmpty){
                     //let temp = line.componentsSeparatedByString(" ")
                     self.filter(line)
-                    
+//                    print("The line is: \(line)")
                     //print(line)
-                    self.menuString.append(line)
+                    let whitespaceSet = NSCharacterSet.whitespaceCharacterSet()
+                    let trimmedString = line.stringByTrimmingCharactersInSet(whitespaceSet)
+                    if trimmedString != "" {
+//                        print("Line \(line) is added")
+                        self.menuString.append(trimmedString)
+                    }
+//                    else {
+//                        print("Did not add line")
+//                        
+//                    }
+                    
+                    
                     //let separated = split("Split Me!", {(c:Character)->Bool in return c==" "}, allowEmptySlices: false)
                 }
                 //print("Hi")
@@ -254,8 +273,12 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
             for menu in menuArray {
                 let temp = networkRequest(menu)
                 self.menulinkArray.append(temp)
-                
                 let nutrition = requestNutrition(menu)
+                //let whitespaceSet = NSCharacterSet.whitespaceCharacterSet()
+                //let trimmedString = menu.stringByTrimmingCharactersInSet(whitespaceSet)
+                //if trimmedString != "" {
+                    //let nutrition = requestNutrition(trimmedString)
+                //}
             }
             
             dismissViewControllerAnimated(true, completion: { () -> Void in

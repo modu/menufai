@@ -8,5 +8,6 @@ target 'menufai' do
 #pod 'TesseractOCRiOS', '4.0.0'
 pod 'TesseractOCRiOS'
 pod 'AFNetworking'
+pod ‘GPUImage’
 end
 
