@@ -3,15 +3,15 @@ Menufai is designed to give its users information about the listings on any rest
 
 Required User Stories
 
-- [ ] User can take an image and it can be sent to the image processor
+- [x] User can take an image and it can be sent to the image processor
 - [x] Image processor parses out keywords of the image into usable code (ie., Strings)
 - [x] String output from the image processor is searched on Google and the results should be returned and stored in a view
-- [ ] User can filter out results (ie., vegan, Gluten-free, etc.)
+- [x] User can push an image, modal pops up with nutritional values, [s]vegan (or not), etc.[/s]
 
 Optional User Stories
 
+- [ ] User can filter out results (ie., vegan, Gluten-free, etc.)
 - [ ] User can select a smaller area to capture on the camera
-- [ ] User can push an image, modal pops up with nutritional values, vegan (or not), etc.
 - [ ] User can push on an image and scroll through that particular image to see other images of it returned from Google search
 - [ ] App can detect multiple languages
 
