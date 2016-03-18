@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6BC2D1AD1C7D2965003BB5FB /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC2D1AC1C7D2965003BB5FB /* CameraViewController.swift */; };
-		B54207AD1C541705008B7DCE /* Pod-Bridging-Header.m in Sources */ = {isa = PBXBuildFile; fileRef = B54207AC1C541705008B7DCE /* Pod-Bridging-Header.m */; };
 		B54207AF1C542905008B7DCE /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B54207AE1C542905008B7DCE /* libz.1.dylib */; };
 		B54207B11C542BAB008B7DCE /* Tesseract in Resources */ = {isa = PBXBuildFile; fileRef = B54207B01C542BAB008B7DCE /* Tesseract */; };
 		B54207BA1C544401008B7DCE /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B54207B91C544401008B7DCE /* CoreImage.framework */; };
@@ -383,7 +382,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -391,16 +390,14 @@
 				);
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = menufai/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				OTHER_LDFLAGS = (
-					"$(inherited)",
 					"-ObjC",
-					"-weak_library",
 					"/usr/lib/libstdc++.6.0.9.dylib",
 					"-framework",
 					"\"Foundation\"",
@@ -425,7 +422,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -433,16 +430,14 @@
 				);
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = menufai/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
 				);
 				OTHER_LDFLAGS = (
-					"$(inherited)",
 					"-ObjC",
-					"-weak_library",
 					"/usr/lib/libstdc++.6.0.9.dylib",
 					"-framework",
 					"\"Foundation\"",
