@@ -26,15 +26,13 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
         let vc = UIImagePickerController()
         vc.delegate = self
         vc.allowsEditing = true
-//        vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        vc.sourceType = UIImagePickerControllerSourceType.Camera
+        vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+//        vc.sourceType = UIImagePickerControllerSourceType.Camera
         
         self.presentViewController(vc, animated: true, completion: nil)
 
         let tesseract:G8Tesseract = G8Tesseract(language:"eng+fra");
         tesseract.language = "eng+fra";
-        
-        callOCRSpace()
 
         //var tesseract:G8Tesseract = G8Tesseract(language:"eng+ita");
         /*
@@ -102,7 +100,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
             if(words.characters.count>2 && !words.characters.contains("$"))
             {
                 //print(words)
-//                listOfNames.append(words)
+                listOfNames.append(words)
 //                print( matchesForRegexInText("/^[A-Za-z]+$/", text : words ) )
             }
 //            if(words.containsString("abcdefghijklmnopqrstwxyzABCDEFGHIJKLMNOPQRSTWXYZ")) {
@@ -228,8 +226,13 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
             adaptFilter.blurRadiusInPixels = 4.0
             
             let filteredImage = adaptFilter.imageByFilteringImage(scaledImage)
-            UIImageWriteToSavedPhotosAlbum(filteredImage, nil, nil, nil)
+//            UIImageWriteToSavedPhotosAlbum(filteredImage, nil, nil, nil)
             
+//            callOCRSpace(filteredImage)
+            callOCRSpaceTest(filteredImage)
+            
+            
+            /*
             let tesseract:G8Tesseract = G8Tesseract(language:"eng");
             print("imagePickerController got called");
             tesseract.language = "eng";
@@ -268,6 +271,9 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
                 }
                 //print("Hi")
             }
+            */
+            
+            
             //NSLog("%@", tesseract.recognizedText);
             /*Make a array of string and loop over it
             and query for each function and get the url
@@ -345,77 +351,111 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
         return scaledImage
     }
     
-    func callOCRSpace() {
-        let requestURL = NSURL(string: "https://api.ocr.space/Parse/Image")!
+    func callOCRSpaceTest(img: UIImage) {
         
-        let request = NSMutableURLRequest(URL: requestURL)
-        request.HTTPMethod = "POST"
-        // Create URL request
-//        var url: NSURL = NSURL(string: "https://api.ocr.space/Parse/Image")!
-//        var request: NSURLRequest = NSURLRequest.requestWithURL(URL:url)
-//        request.HTTPMethod = "POST"
-//        var boundary: String = "randomString"
-//        request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        var session: NSURLSession = NSURLSession.sharedSession()
+        let url = "https://api.ocr.space/Parse/Image"
+        //        var data = "apikey=helloworld&isOverlayRequired=true&url=http://dl.a9t9.com/blog/ocr-online/screenshot.jpg&language=eng"
+        var imageData: NSData = UIImageJPEGRepresentation(img, 0.6)!
         
-        // Image file and parameters
-//        var imageData: NSData = UIImageJPEGRepresentation(UIImage.imageNamed("yourImage"), 0.6)
-//        var parametersDictionary: [NSObject : AnyObject] = NSDictionary(objectsAndKeys: "yourKey","apikey","True","isOverlayRequired","eng","language",nil)
+        var parametersDictionary: [String : AnyObject] = ["apikey": "helloworld","isOverlayRequired": "True","language": "eng"]
         
-        // Create multipart form body
-//        var data: NSData = self.createBodyWithBoundary(boundary, parameters: parametersDictionary, imageData: imageData, filename: "yourImage.jpg")
-//        request.HTTPBody = data
-        var data = "apikey=helloworld&isOverlayRequired=true&url=http://dl.a9t9.com/blog/ocr-online/screenshot.jpg&language=eng"
-        request.HTTPBody = data.dataUsingEncoding(NSUTF8StringEncoding);
+        UPLOADIMG(url, parameters: parametersDictionary, filename: "test1.jpg", image: img, success: nil, failed: nil, errord: nil)
         
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue())
-            {
-                (response, data, error) in
-                print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-        }
-        
-        
-//        let task = session.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) in
-//                        var myError: NSError
-//            if let result = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
-//                
-//                
-//            }
-//            
-//         })
-
-        
-        // Start data session
-//        var task: NSURLSessionDataTask = session.dataTaskWithRequest(request, completionHandler: { (data: NSData, response: NSURLResponse, error: NSError) in
-//            var myError: NSError
-//            var result: [NSObject : AnyObject] = NSJSONSerialization.JSONObjectWithData(data, options: kNilOptions, error: &myError)
-//            // Handle result
-//            
-//        })
-//        task.resume()
     }
     
-//    func createBodyWithBoundary(boundary: String, parameters parameters: [NSObject : AnyObject], imageData data: NSData, filename filename: String) -> NSData {
-//        
-//        var body: NSMutableData = NSMutableData.data()
-//        
-//        if data {
-//            body.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding))
-//            body.appendData("Content-Disposition: form-data; name=\"\("file")\"; filename=\"\(filename)\"\r\n".dataUsingEncoding(NSUTF8StringEncoding))
-//            body.appendData("Content-Type: image/jpeg\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding))
-//            body.appendData(data)
-//            body.appendData(".dataUsingEncoding(NSUTF8StringEncoding))
-//        }
-//        
-//        for key in parameters.allKeys {
-//            body.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding))
-//            body.appendData("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding))
-//            body.appendData("\(parameters[key])\r\n".dataUsingEncoding(NSUTF8StringEncoding))
-//        }
-//        
-//        body.appendData("--\(boundary)--\r\n".dataUsingEncoding(NSUTF8StringEncoding))
-//        return body
-//    }
+    func UPLOADIMG(url: String,parameters: Dictionary<String,AnyObject>?,filename:String,image:UIImage, success:((NSDictionary) -> Void)!, failed:((NSDictionary) -> Void)!, errord:((NSError) -> Void)!) {
+        var TWITTERFON_FORM_BOUNDARY:String = "AaB03x"
+        let url = NSURL(string: url)!
+        var request:NSMutableURLRequest = NSMutableURLRequest(URL: url, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 10)
+        var MPboundary:String = "--\(TWITTERFON_FORM_BOUNDARY)"
+        var endMPboundary:String = "\(MPboundary)--"
+        //convert UIImage to NSData
+        var data:NSData = UIImagePNGRepresentation(image)!
+        var body:NSMutableString = NSMutableString();
+        // with other params
+        if parameters != nil {
+            for (key, value) in parameters! {
+                body.appendFormat("\(MPboundary)\r\n")
+                body.appendFormat("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+                body.appendFormat("\(value)\r\n")
+            }
+        }
+        // set upload image, name is the key of image
+        body.appendFormat("%@\r\n",MPboundary)
+        body.appendFormat("Content-Disposition: form-data; name=\"\(filename)\"; filename=\"pen111.png\"\r\n")
+        body.appendFormat("Content-Type: image/png\r\n\r\n")
+        var end:String = "\r\n\(endMPboundary)"
+        var myRequestData:NSMutableData = NSMutableData();
+        myRequestData.appendData(body.dataUsingEncoding(NSUTF8StringEncoding)!)
+        myRequestData.appendData(data)
+        myRequestData.appendData(end.dataUsingEncoding(NSUTF8StringEncoding)!)
+        var content:String = "multipart/form-data; boundary=\(TWITTERFON_FORM_BOUNDARY)"
+        request.setValue(content, forHTTPHeaderField: "Content-Type")
+        request.setValue("\(myRequestData.length)", forHTTPHeaderField: "Content-Length")
+        request.HTTPBody = myRequestData
+        request.HTTPMethod = "POST"
+        //        var conn:NSURLConnection = NSURLConnection(request: request, delegate: self)!
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print(error)
+                errord(error!)
+                return
+            }
+            do {
+                var responseObject:NSURLResponse?
+                var err:NSErrorPointer = NSErrorPointer()
+                let responseData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &responseObject)
+                if let response1 = responseData as NSData?{
+                    if(err == nil) {
+                        if let result = try NSJSONSerialization.JSONObjectWithData(response1, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
+                            let parsedText: String = result["ParsedResults"]![0]!["ParsedText"]!! as! String
+                            var parsedTextArr: [String] = []
+                            
+                            parsedText.enumerateLines { (var line, stop) -> () in
+                                if(!line.isEmpty){
+                                    //let temp = line.componentsSeparatedByString(" ")
+                                    self.filter(line)
+                                    //                    print("The line is: \(line)")
+                                    //print(line)
+                                    line = self.matchesForRegexInText("/^[A-Za-z]+$/", text: line )
+                                    let whitespaceSet = NSCharacterSet.whitespaceCharacterSet()
+                                    let trimmedString = line.stringByTrimmingCharactersInSet(whitespaceSet)
+                                    if trimmedString != "" {
+                                        //                        print("Line \(line) is added")
+                                        self.menuString.append(trimmedString)
+                                    }
+                                    //                    else {
+                                    //                        print("Did not add line")
+                                    //                        
+                                    //                    }
+                                    
+                                    
+                                    //let separated = split("Split Me!", {(c:Character)->Bool in return c==" "}, allowEmptySlices: false)
+                                }
+
+                            }
+                            
+                            print(parsedText)
+                            print(parsedTextArr.count)
+                            
+                            print(parsedTextArr[4])
+                            
+                        }
+                        else {
+                            print("No Working ocrspace parsed text")
+                        }
+                    }
+                }
+            }catch {
+                print("Error!")
+            }
+
+            
+        })
+        task.resume()
+        
+    }
     
 //    func getImage() {
 //        let url = NSURL(string: "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=\(dishName)")
@@ -433,6 +473,83 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
 //            // let results = responseData["results"] as [String:AnyObject]
 //            // let imageURL = results["unescapedUrl"] as String
 //        }
+
+    
+    //    func callOCRSpace(img: UIImage) {
+    //        let url = NSURL(string: "https://api.ocr.space/Parse/Image")!
+    //        let request = NSMutableURLRequest(URL: url)
+    ////        var data = "apikey=helloworld&isOverlayRequired=true&url=http://dl.a9t9.com/blog/ocr-online/screenshot.jpg&language=eng"
+    //        var imageData: NSData = UIImageJPEGRepresentation(img, 0.6)!
+    //
+    ////        request.HTTPBody = data.dataUsingEncoding(NSUTF8StringEncoding);
+    //        request.HTTPMethod = "POST"
+    //
+    //        var boundary: String = "randomString"
+    //        request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+    ////        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    ////        request.addValue("application/json", forHTTPHeaderField: "Accept")
+    //        var session: NSURLSession = NSURLSession.sharedSession()
+    //        var parametersDictionary: [NSObject : AnyObject] = ["helloworld": "apikey","True": "isOverlayRequired","eng": "language"]
+    ////        var parametersDictionary: [NSObject : AnyObject] = ["apikey": "helloworld","isOverlayRequired": "True","language": "eng"]
+    //
+    //        // Create multipart form body
+    //        var data1: NSData = self.createBodyWithBoundary(boundary, parameters: parametersDictionary, imageData: imageData)
+    ////        var data1: String = "file=imageData&apikey=helloworld&isOverlayRequired=true&language=eng"
+    //        request.HTTPBody = data1
+    ////        request.HTTPBody = data1.dataUsingEncoding(NSUTF8StringEncoding)
+    //
+    //        do {
+    //            var responseObject:NSURLResponse?
+    //            var err:NSErrorPointer = NSErrorPointer()
+    //            let responseData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: &responseObject)
+    //            if let response1 = responseData as NSData?{
+    //                if(err == nil) {
+    //                    if let result = try NSJSONSerialization.JSONObjectWithData(response1, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
+    //                        let parsedText: String = result["ParsedResults"]![0]!["ParsedText"]!! as! String
+    //                        var parsedTextArr: [String] = []
+    //
+    //                        parsedText.enumerateLines { (line, stop) -> () in
+    //                            parsedTextArr.append(line)
+    //                        }
+    //
+    //                        print(parsedText)
+    //                        print(parsedTextArr.count)
+    //
+    //                    }
+    //                    else {
+    //                        print("No Working ocrspace parsed text")
+    //                    }
+    //                }
+    //            }
+    //        }catch {
+    //            print("Error!")
+    //        }
+    //
+    //    }
+    //
+    //    func createBodyWithBoundary(boundary: String, parameters: [NSObject : AnyObject], imageData data: NSData) -> NSData {
+    //
+    //        var body: NSMutableData = NSMutableData()
+    //
+    //            body.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+    ////            body.appendData("Content-Disposition: form-data; name=\"\("file")\"; filename=\"myfile.jpg\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+    //            body.appendData("Content-Type: image/jpeg\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+    //            body.appendData(data)
+    //            body.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+    //
+    //
+    //        for key in parameters.keys {
+    //            body.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+    //            body.appendData("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+    //            body.appendData("\(parameters["\(key)"])\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+    //        }
+    //        
+    //        body.appendData("--\(boundary)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+    ////        let string1 = NSString(data: body, encoding: NSASCIIStringEncoding)
+    ////        print(string1)
+    //        return body
+    //    }
+    //    
 
 
 }
