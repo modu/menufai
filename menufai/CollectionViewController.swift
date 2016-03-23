@@ -20,6 +20,7 @@ class CollectionViewController: UIViewController , UICollectionViewDelegate, UIC
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nutritionLabel: UILabel!
     @IBOutlet weak var factLabel: UILabel!
+    @IBOutlet weak var foodImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,6 +88,7 @@ class CollectionViewController: UIViewController , UICollectionViewDelegate, UIC
                 // do stuff with your cell, for example print the indexPath
                 print("\(index.row): I clicked on a \(cell.foodLabel.text!)")
                 self.nameLabel.text = "Menu Item: \(cell.foodLabel.text!)"
+                self.foodImageView.image = cell.resultImageView.image
                 if menuNutrition[index.row] != [:] {
                     self.nutritionLabel.text = "\(menuNutrition[index.row]["item_name"]!) facts from \(menuNutrition[index.row]["brand_name"]!) \n" +
                         "Calories: \(menuNutrition[index.row]["nf_calories"]!) cal \n" +
