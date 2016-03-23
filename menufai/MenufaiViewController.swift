@@ -395,12 +395,14 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
         request.HTTPBody = myRequestData
         request.HTTPMethod = "POST"
         //        var conn:NSURLConnection = NSURLConnection(request: request, delegate: self)!
+
 //        let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {
 //            data, response, error in
 //            if error != nil {
 //                print(error)
 //                return
 //            }
+
             do {
                 var responseObject:NSURLResponse?
                 var err:NSErrorPointer = NSErrorPointer()
@@ -410,16 +412,20 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
                         if let result = try NSJSONSerialization.JSONObjectWithData(response1, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
                             let parsedText: String = result["ParsedResults"]![0]!["ParsedText"]!! as! String
                             var parsedTextArr: [String] = []
+
                             let lines = parsedText.characters.split { $0 == "\n" || $0 == "\r\n" }.map(String.init)
                             for line in lines {
+
                                 if(!line.isEmpty){
                                     //let temp = line.componentsSeparatedByString(" ")
                                     self.filter(line)
                                     //                    print("The line is: \(line)")
+
 //                                    print(line)
                                     let textLine = self.matchesForRegexInText("/^[A-Za-z]+$/", text: line )
                                     let whitespaceSet = NSCharacterSet.whitespaceCharacterSet()
                                     let trimmedString = textLine.stringByTrimmingCharactersInSet(whitespaceSet)
+
                                     if trimmedString != "" {
                                         //                        print("Line \(line) is added")
                                         self.menuString.append(trimmedString)
@@ -432,7 +438,6 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
                                     
                                     //let separated = split("Split Me!", {(c:Character)->Bool in return c==" "}, allowEmptySlices: false)
                                 }
-
                             }
                             
                         }
@@ -445,9 +450,7 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
                 print("Error!")
             }
 
-            
-//        })
-//        task.resume()
+        
         
     }
     
