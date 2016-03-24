@@ -32,6 +32,7 @@ class CollectionViewController: UIViewController , UICollectionViewDelegate, UIC
         lpgr.delaysTouchesBegan = true
         lpgr.delegate = self
         self.collectionViewft.addGestureRecognizer(lpgr)
+        MenufaiViewController().clearValues()
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

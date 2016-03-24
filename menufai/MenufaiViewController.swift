@@ -6,6 +6,7 @@
 //  Copyright © 2016 Varun Vyas. All rights reserved.
 //
 
+import AFNetworking
 import UIKit
 import TesseractOCR
 import GPUImage
@@ -19,8 +20,10 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
     var theImage: UIImage?
     var menuString: [String] = []
     var menuNutrition: [NSDictionary] = []
+    static var camOn: Bool = false
 
-    override func viewDidLoad() {
+    /*
+    override func viewDidLoad(){
         super.viewDidLoad()
         
         let vc = UIImagePickerController()
@@ -31,8 +34,8 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
         
         self.presentViewController(vc, animated: true, completion: nil)
 
-        let tesseract:G8Tesseract = G8Tesseract(language:"eng+fra");
-        tesseract.language = "eng+fra";
+//        let tesseract:G8Tesseract = G8Tesseract(language:"eng+fra");
+//        tesseract.language = "eng+fra";
 
         //var tesseract:G8Tesseract = G8Tesseract(language:"eng+ita");
         /*
@@ -81,6 +84,37 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
         */
         // Do any additional setup after loading the view, typically from a nib.
     }
+*/
+    
+
+    
+    override func viewDidAppear(animated: Bool){
+        print("camOn is \(MenufaiViewController.camOn)")
+        if !MenufaiViewController.camOn {
+        super.viewDidAppear(animated)
+        print("Entered camOn")
+            
+            dishName = ""
+            menu = []
+            menulinkArray = []
+            filePath = []
+            theImage = nil
+            menuString = []
+            menuNutrition = []
+        
+        
+        let vc = UIImagePickerController()
+        vc.delegate = self
+        vc.allowsEditing = true
+        vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        //        vc.sourceType = UIImagePickerControllerSourceType.Camera
+        
+        self.presentViewController(vc, animated: true, completion: nil)
+            MenufaiViewController.camOn = true
+        }
+        
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -295,7 +329,6 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
             })
             
             performSegueWithIdentifier("resultView", sender: nil)
-            
 
     }
     
@@ -349,6 +382,11 @@ class MenufaiViewController: UIViewController,G8TesseractDelegate, UIImagePicker
         UIGraphicsEndImageContext()
         
         return scaledImage
+    }
+    
+    func clearValues() {
+        MenufaiViewController.camOn = false
+        print("values cleared")
     }
     
     func callOCRSpaceTest(img: UIImage) {
