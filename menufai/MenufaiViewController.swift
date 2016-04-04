@@ -203,7 +203,9 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
     func imagePickerController(picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         var scaledImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
         self.theImage = scaledImage
+        
         //scaledImage = scaleImage(self.theImage!, maxDimension: 640)
         let adaptFilter = GPUImageAdaptiveThresholdFilter()
         adaptFilter.blurRadiusInPixels = 4.0
@@ -213,14 +215,25 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
         //            UIImageWriteToSavedPhotosAlbum(filteredImage, nil, nil, nil)
         
         //            callOCRSpace(filteredImage)
+        //print(filteredImage.size)
+        //filteredImage = filteredImage.resize(0.6)
+//        let temp = UIImageJPEGRepresentation(filteredImage, 0.7)
+//        print(temp?.length)
+//        filteredImage = UIImage(data: temp! ,  scale: 0.5)
+//        print("After UIImage size")
+//        print(filteredImage.size)
+
+        //filteredImage = filteredImage.resize(0.8)
+        print("After resizing seperately")
         print(filteredImage.size)
-        filteredImage = filteredImage.resize(0.5)
-        let temp = UIImageJPEGRepresentation(filteredImage, 0.3)
-        print(temp?.length)
-        filteredImage = UIImage(data: temp! ,  scale: 0.4)
-        print(filteredImage.size)
-        callOCRSpaceTest(filteredImage)
+        while(filteredImage.size.height > 2400 || filteredImage.size.width > 2400 ) {
+            filteredImage = filteredImage.resize(0.95)
+            print(" Decreasing resolution  \(filteredImage.size)")
+            
+        }
         
+        callOCRSpaceTest(filteredImage)
+
         
         //NSLog("%@", tesseract.recognizedText);
         /*Make a array of string and loop over it
@@ -307,11 +320,12 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         let url = "https://api.ocr.space/Parse/Image"
         //        var data = "apikey=helloworld&isOverlayRequired=true&url=http://dl.a9t9.com/blog/ocr-online/screenshot.jpg&language=eng"
-        var imageData: NSData = UIImageJPEGRepresentation(img, 0.4)!
-        print(imageData.length)
+        var imageData: NSData = UIImageJPEGRepresentation(img, 0.9)!
+        var myImage = img;
+    
         var parametersDictionary: [String : AnyObject] = ["apikey": "helloworld","isOverlayRequired": "True","language": "eng"]
         
-        UPLOADIMG(url, parameters: parametersDictionary, filename: "test1.jpg", image: img, success: nil, failed: nil, errord: nil)
+        UPLOADIMG(url, parameters: parametersDictionary, filename: "test1.jpg", image: myImage, success: nil, failed: nil, errord: nil)
         
     }
     
@@ -322,8 +336,25 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
         var request:NSMutableURLRequest = NSMutableURLRequest(URL: url, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData, timeoutInterval: 10)
         var MPboundary:String = "--\(TWITTERFON_FORM_BOUNDARY)"
         var endMPboundary:String = "\(MPboundary)--"
+        
         //convert UIImage to NSData
-        var data:NSData = UIImagePNGRepresentation(image)!
+        //        var fai = 1!f
+        var fai: CGFloat = 1.0
+        var data:NSData = UIImageJPEGRepresentation(image , 1.0)!
+        var myImage = image
+        while(data.length > 1000000 && fai > 0.3 ){
+            
+            data  = UIImageJPEGRepresentation(myImage, fai)!
+            print("Before \(data.length)")
+            myImage = UIImage(data: data )!
+            print( " Decreasing the Size using Jpeg conversion  \(data.length) ")
+            fai = fai - 0.10
+            myImage =  myImage.resize(0.9)
+        }
+        
+        
+        print("Size finally  \(data.length) ")
+        
         var body:NSMutableString = NSMutableString();
         // with other params
         if parameters != nil {
@@ -384,13 +415,6 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
                                     //                        print("Line \(line) is added")
                                     self.menuString.append(trimmedString)
                                 }
-                                //                    else {
-                                //                        print("Did not add line")
-                                //
-                                //                    }
-                                
-                                
-                                //let separated = split("Split Me!", {(c:Character)->Bool in return c==" "}, allowEmptySlices: false)
                             }
                         }
                         
