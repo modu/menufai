@@ -15,16 +15,13 @@ PODS:
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
   - GPUImage (0.1.7)
-  - TesseractOCRiOS (4.0.0)
 
 DEPENDENCIES:
   - AFNetworking
   - GPUImage
-  - TesseractOCRiOS
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
-  TesseractOCRiOS: 90638afbe43d082433f2e76b384c7901d23956df
 
 COCOAPODS: 0.39.0

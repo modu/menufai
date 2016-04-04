@@ -15,7 +15,6 @@
 		B54207C61C5476FC008B7DCE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B54207C51C5476FC008B7DCE /* Images.xcassets */; };
 		B54207C81C54F221008B7DCE /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54207C71C54F221008B7DCE /* CollectionViewController.swift */; };
 		B54207CA1C54F2F0008B7DCE /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54207C91C54F2F0008B7DCE /* CollectionViewCell.swift */; };
-		B554F33E1C55063500527190 /* TesseractOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B554F33D1C55063500527190 /* TesseractOCR.framework */; };
 		B58E98EF1C5412CD00BEF04F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58E98EE1C5412CD00BEF04F /* AppDelegate.swift */; };
 		B58E98F11C5412CD00BEF04F /* MenufaiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58E98F01C5412CD00BEF04F /* MenufaiViewController.swift */; };
 		B58E98F41C5412CD00BEF04F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B58E98F21C5412CD00BEF04F /* Main.storyboard */; };
@@ -35,7 +34,6 @@
 		B54207C51C5476FC008B7DCE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B54207C71C54F221008B7DCE /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		B54207C91C54F2F0008B7DCE /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
-		B554F33D1C55063500527190 /* TesseractOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TesseractOCR.framework; path = "Pods/../build/Debug-iphoneos/TesseractOCR.framework"; sourceTree = "<group>"; };
 		B58E98EB1C5412CD00BEF04F /* menufai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = menufai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B58E98EE1C5412CD00BEF04F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B58E98F01C5412CD00BEF04F /* MenufaiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenufaiViewController.swift; sourceTree = "<group>"; };
@@ -51,7 +49,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B554F33E1C55063500527190 /* TesseractOCR.framework in Frameworks */,
 				B54207BA1C544401008B7DCE /* CoreImage.framework in Frameworks */,
 				B54207AF1C542905008B7DCE /* libz.1.dylib in Frameworks */,
 				F4BF1EB40B9AE644558C6BE3 /* Pods_menufai.framework in Frameworks */,
@@ -64,7 +61,6 @@
 		0C10CB535F0E6C4ECBF08C31 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B554F33D1C55063500527190 /* TesseractOCR.framework */,
 				B54207B91C544401008B7DCE /* CoreImage.framework */,
 				B54207AE1C542905008B7DCE /* libz.1.dylib */,
 				D439EEB7DFDE5309DD0A0A82 /* Pods_menufai.framework */,
@@ -382,7 +378,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -422,7 +418,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
