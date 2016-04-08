@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import EZLoadingActivity
 
 class CollectionViewController: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
 
@@ -27,12 +27,37 @@ class CollectionViewController: UIViewController , UICollectionViewDelegate, UIC
         collectionViewft.delegate = self
         collectionViewft.dataSource = self
         
+//        EZLoadingActivity.show("loading...", disableUI: false)
+        
+//        var postObject = PFObject(className: "collectionView")
+//        postObject.saveInBackgroundWithBlock { (succeeded: Bool, error: NSError!) -> Void in
+//            if error == nil {
+//                if succeeded == true {
+//                    EZLoadingActivity.hide(success: true, animated: false)
+//                    print("Upload Complete")
+//                } else {
+//                    EZLoadingActivity.hide(success: false, animated: true)
+//                    print("Upload Failed")
+//                }
+//            } else {
+//                EZLoadingActivity.hide(success: false, animated: true)
+//                print("Error")
+//            }
+//        }
+//        EZLoadingActivity.hide(success: true, animated: false)
+//        print("load Complete")
         let lpgr = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
         lpgr.minimumPressDuration = 0.5
         lpgr.delaysTouchesBegan = true
         lpgr.delegate = self
         self.collectionViewft.addGestureRecognizer(lpgr)
+        
         MenufaiViewController().clearValues()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+       // EZLoadingActivity.show("Loading...", disableUI: true)
+        EZLoadingActivity.showWithDelay("Loading...", disableUI: false, seconds:0.5)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

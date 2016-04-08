@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0B91F11CB4724E00828B4E /* MyLaunchImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C0B91F01CB4724E00828B4E /* MyLaunchImage@2x.png */; };
 		6BC2D1AD1C7D2965003BB5FB /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC2D1AC1C7D2965003BB5FB /* CameraViewController.swift */; };
 		B54207AF1C542905008B7DCE /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B54207AE1C542905008B7DCE /* libz.1.dylib */; };
 		B54207B11C542BAB008B7DCE /* Tesseract in Resources */ = {isa = PBXBuildFile; fileRef = B54207B01C542BAB008B7DCE /* Tesseract */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C0B91F01CB4724E00828B4E /* MyLaunchImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MyLaunchImage@2x.png"; path = "../../Downloads/splash_screen/MyLaunchImage@2x.png"; sourceTree = "<group>"; };
 		3CF220D198286B90DFD676BE /* Pods-menufai.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-menufai.debug.xcconfig"; path = "Pods/Target Support Files/Pods-menufai/Pods-menufai.debug.xcconfig"; sourceTree = "<group>"; };
 		6BC2D1AC1C7D2965003BB5FB /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		841FDED6A3092CF1C9ACA577 /* Pods-menufai.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-menufai.release.xcconfig"; path = "Pods/Target Support Files/Pods-menufai/Pods-menufai.release.xcconfig"; sourceTree = "<group>"; };
@@ -68,6 +70,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2C38C50B1CB74264006EC59F /* overlay class */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "overlay class";
+			sourceTree = "<group>";
+		};
 		2DE29B3392E1830C8F37844F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				6BC2D1AC1C7D2965003BB5FB /* CameraViewController.swift */,
+				2C38C50B1CB74264006EC59F /* overlay class */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -123,6 +133,7 @@
 				B58E98F01C5412CD00BEF04F /* MenufaiViewController.swift */,
 				B58E98F21C5412CD00BEF04F /* Main.storyboard */,
 				B58E98F51C5412CD00BEF04F /* Assets.xcassets */,
+				2C0B91F01CB4724E00828B4E /* MyLaunchImage@2x.png */,
 				B58E98F71C5412CD00BEF04F /* LaunchScreen.storyboard */,
 				B58E98FA1C5412CD00BEF04F /* Info.plist */,
 				B54207B01C542BAB008B7DCE /* Tesseract */,
@@ -165,7 +176,7 @@
 				TargetAttributes = {
 					B58E98EA1C5412CD00BEF04F = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = EL9368UWFR;
+						DevelopmentTeam = 33UDTKE5FC;
 					};
 				};
 			};
@@ -197,6 +208,7 @@
 				B54207C21C546609008B7DCE /* tessdata in Resources */,
 				B54207C61C5476FC008B7DCE /* Images.xcassets in Resources */,
 				B58E98F41C5412CD00BEF04F /* Main.storyboard in Resources */,
+				2C0B91F11CB4724E00828B4E /* MyLaunchImage@2x.png in Resources */,
 				B54207B11C542BAB008B7DCE /* Tesseract in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

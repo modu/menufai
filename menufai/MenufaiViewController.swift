@@ -5,34 +5,16 @@
 //  Created by Varun Vyas on 23/01/16.
 //  Copyright © 2016 Varun Vyas. All rights reserved.
 //
-
+//import Foundation
+import PKHUD
 import AFNetworking
 import UIKit
-//import TesseractOCR
+import EZLoadingActivity
 import GPUImage
+//import MBProgressHUD
+//import CoreGraphics
+//import SVProgressHUD
 
-extension UIImage {
-    func resize(scale:CGFloat)-> UIImage {
-        let imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: size.width*scale, height: size.height*scale)))
-        imageView.contentMode = UIViewContentMode.ScaleAspectFit
-        imageView.image = self
-        UIGraphicsBeginImageContext(imageView.bounds.size)
-        imageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
-        let result = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return result
-    }
-    func resizeToWidth(width:CGFloat)-> UIImage {
-        let imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))))
-        imageView.contentMode = UIViewContentMode.ScaleAspectFit
-        imageView.image = self
-        UIGraphicsBeginImageContext(imageView.bounds.size)
-        imageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
-        let result = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return result
-    }
-}
 
 class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -45,12 +27,10 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
     var menuNutrition: [NSDictionary] = []
     static var camOn: Bool = false
     
-    
-    
-    
-    
+
     override func viewDidAppear(animated: Bool){
         print("camOn is \(MenufaiViewController.camOn)")
+        
         if !MenufaiViewController.camOn {
             super.viewDidAppear(animated)
             print("Entered camOn")
@@ -67,18 +47,27 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
             let vc = UIImagePickerController()
             vc.delegate = self
             vc.allowsEditing = true
-            //vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-            vc.sourceType = UIImagePickerControllerSourceType.Camera
+            vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            //vc.sourceType = UIImagePickerControllerSourceType.Camera
             
-            print("After the camera ")
+            //print("After the camera ")
+    
+             self.presentViewController(vc, animated: false, completion: nil)
+            //self.presentViewController(vc, animated: <#T##Bool#>, completion: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
             
-            self.presentViewController(vc, animated: true, completion: nil)
+            //EZLoadingActivity.show("Loading...", disableUI: false)
+            //LoadingOverlay.shared.showOverlay(self.view)
+            
             MenufaiViewController.camOn = true
+            
+            //EZLoadingActivity.show("Loading...", disableUI: true)
             
         }
         
-        
     }
+    
+    
+    
     
     
     override func didReceiveMemoryWarning() {
@@ -114,7 +103,12 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
     func networkRequest(menuName :String) -> String {
         var cx = "011903584210993207937:bz3dg769ssy"
         var key = "AIzaSyCUXq0S6_wp1AtZy2vLNDpVCV1Opsapu1M"
-        var u = "https://www.googleapis.com/customsearch/v1?cx=\(cx)&q=\(menuName)&key=\(key)&searchType=image"
+        //var key = "AIzaSyBEmdPIg-SFyJKG09UXB_tSuI0R1dvdJwg"
+        var u = "https://www.googleapis.com/customsearch/v1?cx=\(cx)&q=\(menuName) &key=\(key)&searchType=image"
+        //
+        //        let escapedTerm = menuName.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        //        let urlStr = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=\(escapedTerm)&rsz=8&start=\(8*2)"
+        //
         var urlStr = u.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
         let url = NSURL(string: urlStr)!
         let request = NSURLRequest(URL: url)
@@ -195,51 +189,141 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
         }catch {
             print("requestNutrition Error!")
         }
-        //return dictionary as NSDictionary
 
+        //return dictionary as NSDictionary
+        
         
     }
     
     func imagePickerController(picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        var scaledImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+            
+       
+        self.dismissViewControllerAnimated(true, completion: nil)
+                
+            // print("entering again")
+          
+            
+            
+            //        EZLoadingActivity.show("Loading...", disableUI: true)
+            
+            
+            //LoadingOverlay.shared.showOverlay(self.view)
+            //HUD.show(.Progress)
+            
+            //EZLoadingActivity.show("Loading...", disableUI: true)
+            //HUD.show(.Progress)
+            
+            
+            
+            PKHUD.sharedHUD.contentView = PKHUDSuccessView()
+            PKHUD.sharedHUD.show()
+            print("EZLoading Must have shown")
+            var scaledImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+            
+            self.theImage = scaledImage
+            
+            imageProcessing(self.theImage!)
+            print("After Image Processing")
+            //EZLoadingActivity.hide()
+            //HUD.flash(.Success, delay: 1.0)
+            PKHUD.sharedHUD.hide(afterDelay :0.2)
+            
+            //scaledImage = scaleImage(self.theImage!, maxDimension: 640)
+            
+            //            UIImageWriteToSavedPhotosAlbum(filteredImage, nil, nil, nil)
+            
+            //            callOCRSpace(filteredImage)
+            //print(filteredImage.size)
+            //filteredImage = filteredImage.resize(0.6)
+            //        let temp = UIImageJPEGRepresentation(filteredImage, 0.7)
+            //        print(temp?.length)
+            //        filteredImage = UIImage(data: temp! ,  scale: 0.5)
+            //        print("After UIImage size")
+            //        print(filteredImage.size)
+            
+            //filteredImage = filteredImage.resize(0.8)
+            //HUD.show(.Progress)
+            // dispatch_async(dispatch_get_main_queue(), { // This makes the code run on the main thread
+            
+            //LoadingOverlay.shared.hideOverlayView()
+            //  })
+            
+            
+            
+            // Now some long running task starts...
+            // delay(2.0) {
+            // ...and once it finishes we flash the HUD for a second.
+            
+            //    }
+            
+            
+            
+            //            [SVProgressHUD show];
+            //                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            //                                    // time-consuming task
+            //                dispatch_async(dispatch_get_main_queue(), ^{
+            //            [SVProgressHUD dismiss];
+            //                                        });
+            //                                    });
+            
+            //        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            //            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            //                                    // Do something...
+            //            dispatch_async(dispatch_get_main_queue(), ^{
+            //            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            //                });
+            //            });
+            
+            //dispatch_async(dispatch_get_main_queue(), { // This makes the code run on the main thread
+            
+            //LoadingOverlay.shared.hideOverlayView()
+            //  HUD.flash(.Success, delay: 1.0)
+            // })
+            
+            
+            
+            
+            //NSLog("%@", tesseract.recognizedText);
+            /*Make a array of string and loop over it
+            and query for each function and get the url
+            and then make a Array of String of URL
+            We will use that Array of String to make our String*/
+            
+            //LoadingOverlay.shared.hideOverlayView()
+            //HUD.flash(.Success, delay: 1.0)
+            
+            //        dispatch_async(dispatch_get_main_queue(), { // This makes the code run on the main thread
+            //               //HUD.flash(.Success, delay: 1.0)
+            //        })
+            //LoadingOverlay.shared.hideOverlayView()
+            
+
+            
+            
+            
+            performSegueWithIdentifier("resultView", sender: nil)
+
+            
+    }
+    
+    func imageProcessing(scaledImage :UIImage) {
         
-        self.theImage = scaledImage
-        
-        //scaledImage = scaleImage(self.theImage!, maxDimension: 640)
         let adaptFilter = GPUImageAdaptiveThresholdFilter()
         adaptFilter.blurRadiusInPixels = 4.0
         
         var filteredImage = adaptFilter.imageByFilteringImage(scaledImage)
-        
-        //            UIImageWriteToSavedPhotosAlbum(filteredImage, nil, nil, nil)
-        
-        //            callOCRSpace(filteredImage)
-        //print(filteredImage.size)
-        //filteredImage = filteredImage.resize(0.6)
-//        let temp = UIImageJPEGRepresentation(filteredImage, 0.7)
-//        print(temp?.length)
-//        filteredImage = UIImage(data: temp! ,  scale: 0.5)
-//        print("After UIImage size")
-//        print(filteredImage.size)
 
-        //filteredImage = filteredImage.resize(0.8)
         print("After resizing seperately")
         print(filteredImage.size)
+        
         while(filteredImage.size.height > 2400 || filteredImage.size.width > 2400 ) {
             filteredImage = filteredImage.resize(0.95)
             print(" Decreasing resolution  \(filteredImage.size)")
             
         }
-        
         callOCRSpaceTest(filteredImage)
-
         
-        //NSLog("%@", tesseract.recognizedText);
-        /*Make a array of string and loop over it
-         and query for each function and get the url
-         and then make a Array of String of URL
-         We will use that Array of String to make our String*/
         let menuArray = self.menuString
         for menu in menuArray {
             let temp = networkRequest(menu)
@@ -251,13 +335,11 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
             //let nutrition = requestNutrition(trimmedString)
             //}
         }
-        
-        dismissViewControllerAnimated(true, completion: { () -> Void in
-        })
-        
-        performSegueWithIdentifier("resultView", sender: nil)
-        
+
+
     }
+    
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
@@ -265,6 +347,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
         vc.menuLinkArray = menulinkArray
         vc.menuItems = menuString
         vc.menuNutrition = menuNutrition
+        
     }
     
     
@@ -322,7 +405,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
         //        var data = "apikey=helloworld&isOverlayRequired=true&url=http://dl.a9t9.com/blog/ocr-online/screenshot.jpg&language=eng"
         var imageData: NSData = UIImageJPEGRepresentation(img, 0.9)!
         var myImage = img;
-    
+        
         var parametersDictionary: [String : AnyObject] = ["apikey": "helloworld","isOverlayRequired": "True","language": "eng"]
         
         UPLOADIMG(url, parameters: parametersDictionary, filename: "test1.jpg", image: myImage, success: nil, failed: nil, errord: nil)
@@ -432,7 +515,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
         
     }
     
-
+    
     
     //    func getImage() {
     //        let url = NSURL(string: "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=\(dishName)")
@@ -534,47 +617,126 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
 
 
 
+
+extension UIImage {
+    func resize(scale:CGFloat)-> UIImage {
+        let imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: size.width*scale, height: size.height*scale)))
+        imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        imageView.image = self
+        UIGraphicsBeginImageContext(imageView.bounds.size)
+        imageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result
+    }
+    func resizeToWidth(width:CGFloat)-> UIImage {
+        let imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))))
+        imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        imageView.image = self
+        UIGraphicsBeginImageContext(imageView.bounds.size)
+        imageView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result
+    }
+}
+
+
+public class LoadingOverlay{
+    
+    
+    var overlayView = UIView()
+    var activityIndicator = UIActivityIndicatorView()
+    
+    class var shared: LoadingOverlay {
+        struct Static {
+            static let instance: LoadingOverlay = LoadingOverlay()
+        }
+        return Static.instance
+    }
+    
+    public func showOverlay(view: UIView) {
+        print("got it here")
+        
+        //        overlayView.frame = CGRectMake(0, 0, 80, 80)
+        //        overlayView.center = view.center
+        //        overlayView.backgroundColor = UIColor(hue: 0.0083, saturation: 1, brightness: 0.5, alpha: 1.0)
+        //        //overlayView.UIColor = (hue: 0.0083, saturation: 1, brightness: 0.5, alpha: 1.0)
+        //        overlayView.clipsToBounds = true
+        //        overlayView.layer.cornerRadius = 10
+        //
+        //        activityIndicator.frame = CGRectMake(0, 0, 40, 40)
+        //        activityIndicator.activityIndicatorViewStyle = .WhiteLarge
+        //        activityIndicator.center = CGPointMake(overlayView.bounds.width / 2, overlayView.bounds.height / 2)
+        //         //print("got it here")
+        //        overlayView.addSubview(activityIndicator)
+        //        view.addSubview(overlayView)
+        //
+        //        activityIndicator.startAnimating()
+        if  let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate,
+            let window = appDelegate.window {
+                overlayView.frame = CGRectMake(0, 0, 120, 120)
+                overlayView.center = CGPointMake(window.frame.width / 2.0, window.frame.height / 2.0)
+                overlayView.backgroundColor = UIColor(hue: 0.0083, saturation: 1, brightness: 0.5, alpha: 1.0)
+                overlayView.clipsToBounds = true
+                overlayView.layer.cornerRadius = 10
+                
+                activityIndicator.frame = CGRectMake(0, 0, 40, 40)
+                activityIndicator.activityIndicatorViewStyle = .WhiteLarge
+                activityIndicator.center = CGPointMake(overlayView.bounds.width / 2, overlayView.bounds.height / 2)
+                
+                overlayView.addSubview(activityIndicator)
+                window.addSubview(overlayView)
+                
+                activityIndicator.startAnimating()
+        }
+    }
+    
+    public func hideOverlayView() {
+        
+        activityIndicator.stopAnimating()
+        overlayView.removeFromSuperview()
+    }
+}
 /*
- let tesseract:G8Tesseract = G8Tesseract(language:"eng");
- print("imagePickerController got called");
- tesseract.language = "eng";
- tesseract.delegate = self;
- tesseract.engineMode = .TesseractCubeCombined
- 
- //tesseract.charWhitelist = "abcdefghijklmnopqrstwxyz0123456789ABCDEFGHIJKLMNOPQRSTWXYZ.$";
- 
- tesseract.pageSegmentationMode = .Auto
- 
- tesseract.maximumRecognitionTime = 60.0
- 
- //tesseract.image = UIImage(named: "MenuBarton");
- //tesseract.image = self.theImage
- tesseract.image = filteredImage
- tesseract.recognize();
- tesseract.recognizedText.enumerateLines { (line, stop) -> () in
- if(!line.isEmpty){
- //let temp = line.componentsSeparatedByString(" ")
- self.filter(line)
- //                    print("The line is: \(line)")
- //print(line)
- let whitespaceSet = NSCharacterSet.whitespaceCharacterSet()
- let trimmedString = line.stringByTrimmingCharactersInSet(whitespaceSet)
- if trimmedString != "" {
- //                        print("Line \(line) is added")
- self.menuString.append(trimmedString)
- }
- //                    else {
- //                        print("Did not add line")
- //
- //                    }
- 
- 
- //let separated = split("Split Me!", {(c:Character)->Bool in return c==" "}, allowEmptySlices: false)
- }
- //print("Hi")
- }
- */
+let tesseract:G8Tesseract = G8Tesseract(language:"eng");
+print("imagePickerController got called");
+tesseract.language = "eng";
+tesseract.delegate = self;
+tesseract.engineMode = .TesseractCubeCombined
+
+//tesseract.charWhitelist = "abcdefghijklmnopqrstwxyz0123456789ABCDEFGHIJKLMNOPQRSTWXYZ.$";
+
+tesseract.pageSegmentationMode = .Auto
+
+tesseract.maximumRecognitionTime = 60.0
+
+//tesseract.image = UIImage(named: "MenuBarton");
+//tesseract.image = self.theImage
+tesseract.image = filteredImage
+tesseract.recognize();
+tesseract.recognizedText.enumerateLines { (line, stop) -> () in
+if(!line.isEmpty){
+//let temp = line.componentsSeparatedByString(" ")
+self.filter(line)
+//                    print("The line is: \(line)")
+//print(line)
+let whitespaceSet = NSCharacterSet.whitespaceCharacterSet()
+let trimmedString = line.stringByTrimmingCharactersInSet(whitespaceSet)
+if trimmedString != "" {
+//                        print("Line \(line) is added")
+self.menuString.append(trimmedString)
+}
+//                    else {
+//                        print("Did not add line")
+//
+//                    }
+
+
+//let separated = split("Split Me!", {(c:Character)->Bool in return c==" "}, allowEmptySlices: false)
+}
+//print("Hi")
+}
+*/
 
 //tesseract.charWhitelist = "01234567890";
-
-
