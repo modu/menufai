@@ -31,6 +31,9 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidAppear(animated: Bool){
         print("camOn is \(MenufaiViewController.camOn)")
         
+        
+        
+        
         if !MenufaiViewController.camOn {
             super.viewDidAppear(animated)
             print("Entered camOn")
@@ -52,7 +55,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
             
             //print("After the camera ")
     
-             self.presentViewController(vc, animated: false, completion: nil)
+             self.presentViewController(vc, animated: true, completion: nil)
             //self.presentViewController(vc, animated: <#T##Bool#>, completion: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
             
             //EZLoadingActivity.show("Loading...", disableUI: false)
@@ -201,9 +204,12 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
     func imagePickerController(picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [String : AnyObject]) {
             
-       
-        self.dismissViewControllerAnimated(true, completion: nil)
-                
+            var scaledImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+            //self.theImage = scaledImage
+            PKHUD.sharedHUD.contentView = PKHUDSuccessView()
+            PKHUD.sharedHUD.show()
+            print("EZLoading Must have shown")
+            
             // print("entering again")
           
             
@@ -216,23 +222,42 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
             
             //EZLoadingActivity.show("Loading...", disableUI: true)
             //HUD.show(.Progress)
+            let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+            let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+            dispatch_async(backgroundQueue, {
+                print("This is run on the background queue")
+                self.imageProcessing(scaledImage)
+                print("After Image Processing")
+                //EZLoadingActivity.hide()
+                //HUD.flash(.Success, delay: 1.0)
+                
+                
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    print("This is run on the main queue, after the previous code in outer block")
+                    PKHUD.sharedHUD.hide(animated : true)
+                    picker.dismissViewControllerAnimated(true, completion: nil)
+                    
+                    
+                    self.performSegueWithIdentifier("resultView", sender: nil)
+
+                    
+
+                })
+            })
+
             
             
             
-            PKHUD.sharedHUD.contentView = PKHUDSuccessView()
-            PKHUD.sharedHUD.show()
-            print("EZLoading Must have shown")
-            var scaledImage = info[UIImagePickerControllerOriginalImage] as! UIImage
             
-            self.theImage = scaledImage
             
-            imageProcessing(self.theImage!)
-            print("After Image Processing")
-            //EZLoadingActivity.hide()
-            //HUD.flash(.Success, delay: 1.0)
-            PKHUD.sharedHUD.hide(afterDelay :0.2)
+//            var loadingView = UIImage()
             
-            //scaledImage = scaleImage(self.theImage!, maxDimension: 640)
+            
+            
+            
+            
+                       //scaledImage = scaleImage(self.theImage!, maxDimension: 640)
             
             //            UIImageWriteToSavedPhotosAlbum(filteredImage, nil, nil, nil)
             
@@ -300,15 +325,14 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
             //               //HUD.flash(.Success, delay: 1.0)
             //        })
             //LoadingOverlay.shared.hideOverlayView()
-            
 
-            
-            
-            
-            performSegueWithIdentifier("resultView", sender: nil)
+           
+          
 
-            
     }
+    
+    
+    
     
     func imageProcessing(scaledImage :UIImage) {
         

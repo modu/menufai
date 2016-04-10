@@ -112,7 +112,7 @@ class CollectionViewController: UIViewController , UICollectionViewDelegate, UIC
 //            }
 //            else {
 //                cell.resultImageView.sd_setImageWithURL(temp, placeholderImage: UIImage(named: "placeholder"), completed: block)
-            cell.resultImageView.setImageWithURL(temp, placeholderImage: UIImage(named: "placeholder"))
+            cell.resultImageView.setImageWithURL(temp!, placeholderImage: UIImage(named: "placeholder"))
 //                print("Don't have img")
 //                print("Adding new img: \(temp)")
 //                self.imageArray.append(tempString)
