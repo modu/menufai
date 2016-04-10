@@ -237,10 +237,9 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
                     print("This is run on the main queue, after the previous code in outer block")
 //                  PKHUD.sharedHUD.hide(animated : true)
                     LoadingOverlay.shared.hideOverlayView()
+                    self.performSegueWithIdentifier("resultView", sender: nil)
 
                     picker.dismissViewControllerAnimated(true, completion: nil)
-                    self.performSegueWithIdentifier("resultView", sender: nil)
-                    
 
                 })
             })
