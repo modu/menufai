@@ -205,10 +205,10 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
         didFinishPickingMediaWithInfo info: [String : AnyObject]) {
             
             var scaledImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-            //self.theImage = scaledImage
-            PKHUD.sharedHUD.contentView = PKHUDSuccessView()
-            PKHUD.sharedHUD.show()
-            print("EZLoading Must have shown")
+            self.theImage = scaledImage
+//            PKHUD.sharedHUD.contentView = PKHUDSuccessView()
+//            PKHUD.sharedHUD.show()
+//            print("EZLoading Must have shown")
             
             // print("entering again")
           
@@ -217,7 +217,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
             //        EZLoadingActivity.show("Loading...", disableUI: true)
             
             
-            //LoadingOverlay.shared.showOverlay(self.view)
+            LoadingOverlay.shared.showOverlay(self.view)
             //HUD.show(.Progress)
             
             //EZLoadingActivity.show("Loading...", disableUI: true)
@@ -226,7 +226,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
             let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
             dispatch_async(backgroundQueue, {
                 print("This is run on the background queue")
-                self.imageProcessing(scaledImage)
+                self.imageProcessing(self.theImage!)
                 print("After Image Processing")
                 //EZLoadingActivity.hide()
                 //HUD.flash(.Success, delay: 1.0)
@@ -235,20 +235,22 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     print("This is run on the main queue, after the previous code in outer block")
-                    PKHUD.sharedHUD.hide(animated : true)
-                    picker.dismissViewControllerAnimated(true, completion: nil)
-                    
-                    
-                    self.performSegueWithIdentifier("resultView", sender: nil)
+//                  PKHUD.sharedHUD.hide(animated : true)
+                    LoadingOverlay.shared.hideOverlayView()
 
+                    picker.dismissViewControllerAnimated(true, completion: nil)
+                    self.performSegueWithIdentifier("resultView", sender: nil)
                     
 
                 })
             })
 
             
+            func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+                dismissViewControllerAnimated(true, completion: nil)
+
             
-            
+            }
             
             
 //            var loadingView = UIImage()
@@ -274,8 +276,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
             //HUD.show(.Progress)
             // dispatch_async(dispatch_get_main_queue(), { // This makes the code run on the main thread
             
-            //LoadingOverlay.shared.hideOverlayView()
-            //  })
+            //            //  })
             
             
             
@@ -708,7 +709,7 @@ public class LoadingOverlay{
                 overlayView.clipsToBounds = true
                 overlayView.layer.cornerRadius = 10
                 
-                activityIndicator.frame = CGRectMake(0, 0, 40, 40)
+                activityIndicator.frame = CGRectMake(0, 0, 80, 80)
                 activityIndicator.activityIndicatorViewStyle = .WhiteLarge
                 activityIndicator.center = CGPointMake(overlayView.bounds.width / 2, overlayView.bounds.height / 2)
                 
