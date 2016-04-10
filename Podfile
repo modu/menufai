@@ -14,5 +14,6 @@ pod 'MBProgressHUD', '~> 0.9.2'
 pod 'AFNetworking'
 pod ‘GPUImage’
 pod "PKHUD"
+#pod ‘SDWebImage’
 end
 

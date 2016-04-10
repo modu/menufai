@@ -101,8 +101,11 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     
     func networkRequest(menuName :String) -> String {
+        print("GOOGLE MAKING NETWORK REQUEST")
         var cx = "011903584210993207937:bz3dg769ssy"
-        var key = "AIzaSyCUXq0S6_wp1AtZy2vLNDpVCV1Opsapu1M"
+        //var key = "AIzaSyCUXq0S6_wp1AtZy2vLNDpVCV1Opsapu1M"
+        //var key = "AIzaSyDxSZDvcBvCpUjw9pc5ZUAOpZ4k6VLM1MA"
+        var key = "AIzaSyAvQF30x3dPnZXdzgvVLQM7o1H8_hFXSmw"
         //var key = "AIzaSyBEmdPIg-SFyJKG09UXB_tSuI0R1dvdJwg"
         var u = "https://www.googleapis.com/customsearch/v1?cx=\(cx)&q=\(menuName) &key=\(key)&searchType=image"
         //
@@ -148,11 +151,11 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func requestNutrition(menuItem: String) {
+        print("MAKING NUTRIONIX REQUEST")
         let appId = "f043c24d"
         let appKey = "8897be9dbacaa535e0cba2ea6b4d4d44"
         var escapedItem = menuItem.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         var search = "https://api.nutritionix.com/v1_1/search/\(escapedItem!)?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat&appId=\(appId)&appKey=\(appKey)"
-        print("Searching for: \(search)")
         let url = NSURL(string: search)!
         let request = NSURLRequest(URL: url)
         //var dictionary : [String:String] = [:]
@@ -164,7 +167,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
                 if(err == nil) {
                     if let result = try NSJSONSerialization.JSONObjectWithData(response1, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
                         //print(result["hits"]![0]["fields"]!)
-                        if result.count > 2 {
+                        if result.count > 2 { 
                             if result["total_hits"] as! Int != 0 {
                                 self.menuNutrition.append(result["hits"]![0]["fields"]! as! NSDictionary)
                             }
@@ -489,7 +492,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
                                 self.filter(line)
                                 //                    print("The line is: \(line)")
                                 
-                                //                                    print(line)
+                                                                    print(line)
                                 let textLine = self.matchesForRegexInText("/^[A-Za-z]+$/", text: line )
                                 let whitespaceSet = NSCharacterSet.whitespaceCharacterSet()
                                 let trimmedString = textLine.stringByTrimmingCharactersInSet(whitespaceSet)
