@@ -36,6 +36,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
             theImage = nil
             menuString = []
             menuNutrition = []
+            newMenu = []
             
             
             let vc = UIImagePickerController()
@@ -77,8 +78,8 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
     func networkRequest(menuName :String) -> String {
         var cx = "011903584210993207937:bz3dg769ssy"
         //var key = "AIzaSyCUXq0S6_wp1AtZy2vLNDpVCV1Opsapu1M"
-        //var key = "AIzaSyDxSZDvcBvCpUjw9pc5ZUAOpZ4k6VLM1MA"
-        var key = "AIzaSyAvQF30x3dPnZXdzgvVLQM7o1H8_hFXSmw"
+        var key = "AIzaSyDxSZDvcBvCpUjw9pc5ZUAOpZ4k6VLM1MA"
+        //var key = "AIzaSyAvQF30x3dPnZXdzgvVLQM7o1H8_hFXSmw"
         //var key = "AIzaSyBEmdPIg-SFyJKG09UXB_tSuI0R1dvdJwg"
         var u = "https://www.googleapis.com/customsearch/v1?cx=\(cx)&q=\(menuName) &key=\(key)&searchType=image"
 
