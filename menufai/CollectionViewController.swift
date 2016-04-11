@@ -90,10 +90,6 @@ class CollectionViewController: UIViewController , UICollectionViewDelegate, UIC
                     self.nutritionLabel.text = "No nutritional values found"
                 }
                 
-                
-                print(menuNutrition[index.row])
-                
-                
             } else {
                 print("Could not find index path")
             }

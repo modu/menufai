@@ -21,6 +21,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
     var theImage: UIImage?
     var menuString: [String] = []
     var menuNutrition: [NSDictionary] = []
+    var newMenu: [String] = []
     static var camOn: Bool = false
     
 
@@ -103,6 +104,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
                         }
                         else {
                             print("No image found for this item: \(menuName)")
+                            self.newMenu = self.newMenu.filter() {$0 != menuName}
                         }
                         
                     }
@@ -170,12 +172,9 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
             let qualityOfServiceClass = QOS_CLASS_BACKGROUND
             let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
             dispatch_async(backgroundQueue, {
-                print("This is run on the background queue")
                 self.imageProcessing(self.theImage!)
-                print("After Image Processing")
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    print("This is run on the main queue, after the previous code in outer block")
                     LoadingOverlay.shared.hideOverlayView()
                     self.performSegueWithIdentifier("resultView", sender: nil)
 
@@ -200,12 +199,9 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         var filteredImage = adaptFilter.imageByFilteringImage(scaledImage)
 
-        print("After resizing seperately")
-        print(filteredImage.size)
         
         while(filteredImage.size.height > 2400 || filteredImage.size.width > 2400 ) {
             filteredImage = filteredImage.resize(0.95)
-            print(" Decreasing resolution  \(filteredImage.size)")
             
         }
         callOCRSpaceTest(filteredImage)
@@ -213,10 +209,11 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
         let menuArray = self.menuString
         for menu in menuArray {
             let temp = networkRequest(menu)
-            self.menulinkArray.append(temp)
-            let nutrition = requestNutrition(menu)
+            if temp != "" {
+                self.menulinkArray.append(temp)
+                let nutrition = requestNutrition(menu)
+            }
         }
-
 
     }
     
@@ -226,7 +223,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         let vc = segue.destinationViewController as! CollectionViewController
         vc.menuLinkArray = menulinkArray
-        vc.menuItems = menuString
+        vc.menuItems = newMenu
         vc.menuNutrition = menuNutrition
         
     }
@@ -351,6 +348,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
                                 
                                 if trimmedString != "" {
                                     self.menuString.append(trimmedString)
+                                    self.newMenu.append(trimmedString)
                                 }
                             }
                         }
