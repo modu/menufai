@@ -8,10 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6B526BF41CBA9795005AD0A2 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B526BF31CBA9795005AD0A2 /* placeholder.png */; };
-		6B6CDB221CBD4974005446B1 /* Icon-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B6CDB211CBD4974005446B1 /* Icon-40@3x.png */; };
-		6B6CDB241CBD4D83005446B1 /* background1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6B6CDB231CBD4D83005446B1 /* background1.jpg */; };
 		6B6CDB261CBD4FD5005446B1 /* IconImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B6CDB251CBD4FD5005446B1 /* IconImage.png */; };
-		6B6CDB281CBD50DE005446B1 /* background2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6B6CDB271CBD50DE005446B1 /* background2.jpg */; };
 		6B6CDB2A1CBD5188005446B1 /* background3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6B6CDB291CBD5188005446B1 /* background3.jpg */; };
 		6BC2D1AD1C7D2965003BB5FB /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC2D1AC1C7D2965003BB5FB /* CameraViewController.swift */; };
 		B54207AF1C542905008B7DCE /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B54207AE1C542905008B7DCE /* libz.1.dylib */; };
@@ -33,10 +30,7 @@
 /* Begin PBXFileReference section */
 		3CF220D198286B90DFD676BE /* Pods-menufai.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-menufai.debug.xcconfig"; path = "Pods/Target Support Files/Pods-menufai/Pods-menufai.debug.xcconfig"; sourceTree = "<group>"; };
 		6B526BF31CBA9795005AD0A2 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
-		6B6CDB211CBD4974005446B1 /* Icon-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-40@3x.png"; path = "Images.xcassets/AppIcon.appiconset/Icon-40@3x.png"; sourceTree = SOURCE_ROOT; };
-		6B6CDB231CBD4D83005446B1 /* background1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = background1.jpg; path = ../../../../Documents/background1.jpg; sourceTree = "<group>"; };
 		6B6CDB251CBD4FD5005446B1 /* IconImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IconImage.png; path = ../../../../Documents/IconImage.png; sourceTree = "<group>"; };
-		6B6CDB271CBD50DE005446B1 /* background2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = background2.jpg; path = ../../../../Documents/background2.jpg; sourceTree = "<group>"; };
 		6B6CDB291CBD5188005446B1 /* background3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = background3.jpg; path = ../../../../Documents/background3.jpg; sourceTree = "<group>"; };
 		6BC2D1AC1C7D2965003BB5FB /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		841FDED6A3092CF1C9ACA577 /* Pods-menufai.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-menufai.release.xcconfig"; path = "Pods/Target Support Files/Pods-menufai/Pods-menufai.release.xcconfig"; sourceTree = "<group>"; };
@@ -138,19 +132,16 @@
 		B58E98ED1C5412CD00BEF04F /* menufai */ = {
 			isa = PBXGroup;
 			children = (
-				6B6CDB291CBD5188005446B1 /* background3.jpg */,
-				6B6CDB271CBD50DE005446B1 /* background2.jpg */,
 				6BC2D1AB1C7D292E003BB5FB /* View Controller */,
 				B54207C91C54F2F0008B7DCE /* CollectionViewCell.swift */,
-				6B6CDB251CBD4FD5005446B1 /* IconImage.png */,
-				6B6CDB231CBD4D83005446B1 /* background1.jpg */,
-				6B6CDB211CBD4974005446B1 /* Icon-40@3x.png */,
 				6B526BF31CBA9795005AD0A2 /* placeholder.png */,
 				B54207C71C54F221008B7DCE /* CollectionViewController.swift */,
 				B58E98EE1C5412CD00BEF04F /* AppDelegate.swift */,
 				B58E98F01C5412CD00BEF04F /* MenufaiViewController.swift */,
 				B58E98F21C5412CD00BEF04F /* Main.storyboard */,
 				B58E98F51C5412CD00BEF04F /* Assets.xcassets */,
+				6B6CDB291CBD5188005446B1 /* background3.jpg */,
+				6B6CDB251CBD4FD5005446B1 /* IconImage.png */,
 				B58E98F71C5412CD00BEF04F /* LaunchScreen.storyboard */,
 				B58E98FA1C5412CD00BEF04F /* Info.plist */,
 				B54207B01C542BAB008B7DCE /* Tesseract */,
@@ -223,15 +214,12 @@
 			files = (
 				6B6CDB261CBD4FD5005446B1 /* IconImage.png in Resources */,
 				6B6CDB2A1CBD5188005446B1 /* background3.jpg in Resources */,
-				6B6CDB281CBD50DE005446B1 /* background2.jpg in Resources */,
 				B58E98F91C5412CD00BEF04F /* LaunchScreen.storyboard in Resources */,
-				6B6CDB241CBD4D83005446B1 /* background1.jpg in Resources */,
 				B58E98F61C5412CD00BEF04F /* Assets.xcassets in Resources */,
 				B54207C21C546609008B7DCE /* tessdata in Resources */,
 				B54207C61C5476FC008B7DCE /* Images.xcassets in Resources */,
 				6B526BF41CBA9795005AD0A2 /* placeholder.png in Resources */,
 				B58E98F41C5412CD00BEF04F /* Main.storyboard in Resources */,
-				6B6CDB221CBD4974005446B1 /* Icon-40@3x.png in Resources */,
 				B54207B11C542BAB008B7DCE /* Tesseract in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
