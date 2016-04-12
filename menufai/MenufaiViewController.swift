@@ -23,7 +23,63 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
     var menuNutrition: [NSDictionary] = []
     var newMenu: [String] = []
     static var camOn: Bool = false
+    static var chosePic: Bool = false
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        addBackgroundImage()
+        addLogo()
+        
+        // Show the home screen after a bit. Calls the show() function.
+//        let timer = NSTimer.scheduledTimerWithTimeInterval(
+//            2.5, target: self, selector: Selector("show"), userInfo: nil, repeats: false
+//        )
+    }
+    
+    /*
+    * Gets rid of the status bar
+    */
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    /*
+    * Shows the app's main home screen.
+    * Gets called by the timer in viewDidLoad()
+    */
+    func show() {
+        self.performSegueWithIdentifier("showApp", sender: self)
+    }
+    
+    /*
+    * Adds background image to the splash screen
+    */
+    func addBackgroundImage() {
+        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        
+        let bg = UIImage(named: "background3.jpg")
+        let bgView = UIImageView(image: bg)
+        
+        bgView.frame = CGRectMake(0, 0, screenSize.width, screenSize.height)
+        self.view.addSubview(bgView)
+    }
+    
+    /*
+    * Adds logo to splash screen
+    */
+    func addLogo() {
+        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        
+        let logo     = UIImage(named: "IconImage.png")
+        let logoView = UIImageView(image: logo)
+        
+        let w = (logo?.size.width)!
+        let h = (logo?.size.height)!
+        
+        logoView.frame = CGRectMake( (screenSize.width/2) - (w/2), (screenSize.height / 2) - (h / 2), w, h )
+        self.view.addSubview(logoView)
+    }
 
     override func viewDidAppear(animated: Bool){
         if !MenufaiViewController.camOn {
@@ -46,7 +102,9 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
             //vc.sourceType = UIImagePickerControllerSourceType.Camera
     
             self.presentViewController(vc, animated: true, completion: nil)
-            MenufaiViewController.camOn = true
+            if MenufaiViewController.chosePic {
+                MenufaiViewController.camOn = true
+            }
         }
     }
     
@@ -165,6 +223,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
     func imagePickerController(picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [String : AnyObject]) {
 
+            MenufaiViewController.chosePic = true
             var scaledImage = info[UIImagePickerControllerOriginalImage] as! UIImage
             self.theImage = scaledImage
             
@@ -187,6 +246,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
             
             func imagePickerControllerDidCancel(picker: UIImagePickerController) {
                 dismissViewControllerAnimated(true, completion: nil)
+                
             }
     }
     

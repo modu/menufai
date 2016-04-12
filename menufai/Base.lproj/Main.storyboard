@@ -19,11 +19,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="fyH-nc-0Zb">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="MJf-am-OTp">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" style="plain" id="MJf-am-OTp">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Mbr-qr-GD2">
                                 <rect key="frame" x="233" y="7" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Settings"/>
                                 <connections>
                                     <segue destination="sV2-nz-5NH" kind="push" identifier="resultView" id="ZKB-JE-V9C"/>
                                 </connections>
