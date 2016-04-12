@@ -16,7 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        LocalCache.sharedInstance.cache = defaults.objectForKey("key") as! [String:String]
+        if let temp =  ( defaults.objectForKey("key") ) {
+            LocalCache.sharedInstance.cache = self.defaults.objectForKey("key") as! [String:String]
+            
+        }
         return true
     }
 

@@ -98,8 +98,8 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
             let vc = UIImagePickerController()
             vc.delegate = self
             vc.allowsEditing = true
-            vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-            //vc.sourceType = UIImagePickerControllerSourceType.Camera
+            //vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            vc.sourceType = UIImagePickerControllerSourceType.Camera
     
             self.presentViewController(vc, animated: true, completion: nil)
             if MenufaiViewController.chosePic {
@@ -270,14 +270,20 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
         let menuArray = self.menuString
         for menu in menuArray {
             
-            
-            
-            
-            let temp = networkRequest(menu)
-            if temp != "" {
-                self.menulinkArray.append(temp)
-                LocalCache.sharedInstance.putUrl(menu, url: temp)
+            /*check in cache if menu is present
+             if present then use that otherwise make networkRequest and update cache
+             */
+            if LocalCache.sharedInstance.isPresent(menu) {
+                self.menulinkArray.append( LocalCache.sharedInstance.getUrl(menu) )
                 let nutrition = requestNutrition(menu)
+            }
+            else {
+                let temp = networkRequest(menu)
+                if temp != "" {
+                    self.menulinkArray.append(temp)
+                    LocalCache.sharedInstance.putUrl(menu, url: temp)
+                    let nutrition = requestNutrition(menu)
+                }
             }
         }
 
