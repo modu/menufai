@@ -47,6 +47,12 @@ class LocalCache{
         }
     }
     
+    func utilityPrintDictionary() {
+        for(menu,url) in cache {
+            print("\(menu) \(url)")
+        }
+    }
+    
     
     
 }

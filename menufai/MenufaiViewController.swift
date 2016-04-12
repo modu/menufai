@@ -209,16 +209,19 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         let menuArray = self.menuString
         for menu in menuArray {
+            
+            
+            
+            
             let temp = networkRequest(menu)
             if temp != "" {
                 self.menulinkArray.append(temp)
+                LocalCache.sharedInstance.putUrl(menu, url: temp)
                 let nutrition = requestNutrition(menu)
             }
         }
 
     }
-    
-    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
