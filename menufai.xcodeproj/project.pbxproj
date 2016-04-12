@@ -26,6 +26,7 @@
 		B58E98F41C5412CD00BEF04F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B58E98F21C5412CD00BEF04F /* Main.storyboard */; };
 		B58E98F61C5412CD00BEF04F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B58E98F51C5412CD00BEF04F /* Assets.xcassets */; };
 		B58E98F91C5412CD00BEF04F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B58E98F71C5412CD00BEF04F /* LaunchScreen.storyboard */; };
+		B5EF5FA01CBCF36200AA5054 /* LocalCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EF5F9F1CBCF36200AA5054 /* LocalCache.swift */; };
 		F4BF1EB40B9AE644558C6BE3 /* Pods_menufai.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D439EEB7DFDE5309DD0A0A82 /* Pods_menufai.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		B58E98F51C5412CD00BEF04F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B58E98F81C5412CD00BEF04F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B58E98FA1C5412CD00BEF04F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5EF5F9F1CBCF36200AA5054 /* LocalCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalCache.swift; sourceTree = "<group>"; };
 		D439EEB7DFDE5309DD0A0A82 /* Pods_menufai.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_menufai.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -152,6 +154,7 @@
 				B58E98F71C5412CD00BEF04F /* LaunchScreen.storyboard */,
 				B58E98FA1C5412CD00BEF04F /* Info.plist */,
 				B54207B01C542BAB008B7DCE /* Tesseract */,
+				B5EF5F9F1CBCF36200AA5054 /* LocalCache.swift */,
 			);
 			path = menufai;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5EF5FA01CBCF36200AA5054 /* LocalCache.swift in Sources */,
 				B54207CA1C54F2F0008B7DCE /* CollectionViewCell.swift in Sources */,
 				B54207C81C54F221008B7DCE /* CollectionViewController.swift in Sources */,
 				B58E98F11C5412CD00BEF04F /* MenufaiViewController.swift in Sources */,

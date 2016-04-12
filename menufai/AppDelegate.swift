@@ -12,10 +12,11 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let defaults = NSUserDefaults.standardUserDefaults()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        LocalCache.sharedInstance.cache = defaults.objectForKey("key") as! [String:String]
         return true
     }
 
@@ -39,6 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        LocalCache.sharedInstance.utilityPrintDictionary()
+        defaults.setObject(LocalCache.sharedInstance.getCache(), forKey: "key")
+        
     }
 
 
