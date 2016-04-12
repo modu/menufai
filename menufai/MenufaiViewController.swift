@@ -333,6 +333,7 @@ class MenufaiViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func clearValues() {
         MenufaiViewController.camOn = false
+        MenufaiViewController.chosePic = false
     }
     
     func callOCRSpaceTest(img: UIImage) {
