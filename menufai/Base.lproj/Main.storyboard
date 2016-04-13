@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vZs-G0-p2f">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vZs-G0-p2f">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--Menufai View Controller-->
@@ -48,6 +48,8 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aPx-1e-Edy">
                                 <rect key="frame" x="0.0" y="63" width="320" height="505"/>
+                                <color key="backgroundColor" red="0.028620783239603043" green="0.66849017143249512" blue="0.98435801267623901" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.030455300584435463" green="0.47644942998886108" blue="0.97110408544540405" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aSc-xm-nbq">
                                     <size key="itemSize" width="139.5" height="181"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -56,10 +58,10 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="CollectionViewController" reuseIdentifier="CollectionViewCell" id="OZG-Vr-QBk" customClass="CollectionViewCell" customModule="menufai" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="64" width="140" height="181"/>
+                                        <rect key="frame" x="0.0" y="64" width="139.5" height="181"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="140" height="181"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="139.5" height="181"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SQN-ic-u0L">
@@ -118,7 +120,7 @@
                                         <rect key="frame" x="8" y="8" width="264" height="212"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="0.75" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.035408321768045425" green="0.91429567337036133" blue="0.97493356466293335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="DLD-6e-z1k" firstAttribute="leading" secondItem="Rk5-FF-uOr" secondAttribute="leading" constant="8" id="2kF-Ey-kzc"/>
                                     <constraint firstAttribute="trailing" secondItem="yNP-mb-wgy" secondAttribute="trailing" constant="8" id="5LE-7e-tYd"/>
