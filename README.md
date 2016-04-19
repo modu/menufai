@@ -1,5 +1,7 @@
 ## User Stories
 Menufai is designed to give its users information about the listings on any restaurant menu. The user will capture an image of the menu listings, and the output is given as a collection view of images that corresponds to what was in the image of the menu.  
+Final Presentation Video:
+https://www.youtube.com/watch?v=nITRck0UYeo
 
 Required User Stories
 
